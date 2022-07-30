@@ -97,9 +97,7 @@ const addEvent = (casillas) => {
     casilla.addEventListener("click", () => {
       if (contadorInterno === 0) {
         if (casilla.childElementCount == 0) {
-          console.log(
-            `Casilla N° ${casilla.id.replace("casillero", "")} vacio`
-          );
+          console.log("");
         } else {
           let imagenDentroBase = casilla.firstElementChild.firstElementChild;
           imagenDeReserva = imagenDentroBase.id;
@@ -134,6 +132,13 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
   //declaraciones//
   let capturandoLaImagen = document.getElementById(object);
   let corregirURL = capturandoLaImagen.src.slice(21);
+  let bynCapturando = document.getElementById(casillaDest);
+  let compFinByn = false;
+  if (bynCapturando.hasChildNodes() === true) {
+    let comparacionCapturada = bynCapturando.firstChild.firstChild;
+    let srcBYN = comparacionCapturada.src;
+    compFinByn = srcBYN.includes("Blanc");
+  }
   let captObjcID = capturandoLaImagen.id;
   let comparacion07 = captObjcID.slice(0, 7);
   let comparacion05 = captObjcID.slice(0, 5);
@@ -189,17 +194,49 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
           ];
 
           arrayDePosiblesCaballo.forEach((element) => {
-            
-              let eleInLet = document.getElementById(element); 
+            if (
+              casillaDest === element &&
+              casillaOrig != casillaDest &&
+              count < 1
+            ) {
+              let eleInLet = document.getElementById(element);
               let numero1 = element.slice(9);
               let numero = parseFloat(numero1);
               if (element.includes("-") || numero > 64 || numero === 0) {
-                console.log("no habilitado.");
-              }else if(eleInLet.hasChildNodes() === false && element === casillaDest){
+                console.log("");
+              } else if (eleInLet.hasChildNodes()) {
+                if (
+                  byn === true &&
+                  compFinByn === false &&
+                  element === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else if (
+                  byn === false &&
+                  compFinByn === true &&
+                  element === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else {
+                  tieneNoTiene++;
+                }
+              } else if (
+                eleInLet.hasChildNodes() === false &&
+                element === casillaDest
+              ) {
                 kickImgBoardPrev(eliminarHijoNativo);
                 comerPieza(comerPiezaDest);
                 crearImagen(destino, "." + corregirURL);
               }
+            }
           });
         }
       }
@@ -219,12 +256,28 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             alfilOpt3,
             alfilOpt4,
           ];
+          if (cortarDiagonal1.length >= 1) {
+            arrayDePosiblesAlfil.splice(0, 1);
+            arrayDePosiblesAlfil.splice(0, 0, casillaOrig);
+          }
+          if (cortarDiagonal2.length >= 1) {
+            arrayDePosiblesAlfil.splice(1, 1);
+            arrayDePosiblesAlfil.splice(1, 0, casillaOrig);
+          }
+          if (cortarDiagonal3.length >= 1) {
+            arrayDePosiblesAlfil.splice(2, 1);
+            arrayDePosiblesAlfil.splice(2, 0, casillaOrig);
+          }
+          if (cortarDiagonal4.length >= 1) {
+            arrayDePosiblesAlfil.splice(3, 1);
+            arrayDePosiblesAlfil.splice(3, 0, casillaOrig);
+          }
 
           arrayDePosiblesAlfil.forEach((opt) => {
             let numero1 = opt.slice(9);
             let numero = parseFloat(numero1);
             if (opt.includes("-") || numero > 64 || numero === 0) {
-              console.log("no habilitado.");
+              console.log("");
             } else {
               let test = document.getElementById(opt);
               if (test.hasChildNodes()) {
@@ -244,24 +297,6 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               }
             }
           });
-
-          if (cortarDiagonal1.length >= 1) {
-            arrayDePosiblesAlfil.splice(0, 1);
-            arrayDePosiblesAlfil.splice(0, 0, casillaOrig);
-          }
-          if (cortarDiagonal2.length >= 1) {
-            arrayDePosiblesAlfil.splice(1, 1);
-            arrayDePosiblesAlfil.splice(1, 0, casillaOrig);
-          }
-          if (cortarDiagonal3.length >= 1) {
-            arrayDePosiblesAlfil.splice(2, 1);
-            arrayDePosiblesAlfil.splice(2, 0, casillaOrig);
-          }
-          if (cortarDiagonal4.length >= 1) {
-            arrayDePosiblesAlfil.splice(3, 1);
-            arrayDePosiblesAlfil.splice(3, 0, casillaOrig);
-          }
-
           arrayDePosiblesAlfil.forEach((posibilidad) => {
             if (
               casillaDest === posibilidad &&
@@ -286,18 +321,41 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               }
               derechoOReves.forEach((ele) => {
                 if (ele.includes("-")) {
-                  console.log("no habilitado.");
+                  console.log("");
                 } else {
-                  let eleInLet = document.getElementById(ele);
-
-                  if (eleInLet.hasChildNodes()) {
-                    tieneNoTiene++;
-                  } else {
-                    if (ele === casillaDest && tieneNoTiene === 0) {
-                      count++;
-                      kickImgBoardPrev(eliminarHijoNativo);
-                      comerPieza(comerPiezaDest);
-                      crearImagen(destino, "." + corregirURL);
+                  if (casillaDest === ele) {
+                    let eleInLet = document.getElementById(ele);
+                    if (eleInLet.hasChildNodes()) {
+                      if (
+                        byn === true &&
+                        compFinByn === false &&
+                        ele === casillaDest &&
+                        tieneNoTiene === 0
+                      ) {
+                        count++;
+                        kickImgBoardPrev(eliminarHijoNativo);
+                        comerPieza(comerPiezaDest);
+                        crearImagen(destino, "." + corregirURL);
+                      } else if (
+                        byn === false &&
+                        compFinByn === true &&
+                        ele === casillaDest &&
+                        tieneNoTiene === 0
+                      ) {
+                        count++;
+                        kickImgBoardPrev(eliminarHijoNativo);
+                        comerPieza(comerPiezaDest);
+                        crearImagen(destino, "." + corregirURL);
+                      } else {
+                        tieneNoTiene++;
+                      }
+                    } else {
+                      if (ele === casillaDest && tieneNoTiene === 0) {
+                        count++;
+                        kickImgBoardPrev(eliminarHijoNativo);
+                        comerPieza(comerPiezaDest);
+                        crearImagen(destino, "." + corregirURL);
+                      }
                     }
                   }
                 }
@@ -329,8 +387,8 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               derechoOReves.forEach((ele) => {
                 let numero1 = ele.slice(9);
                 let numero = parseFloat(numero1);
-                if (ele.includes("-") || numero > 64) {
-                  console.log("no habilitado.");
+                if (ele.includes("-") || numero > 64 || numero === 0) {
+                  console.log("");
                 } else {
                   let eleInLet = document.getElementById(ele);
                   if (eleInLet.hasChildNodes()) {
@@ -370,8 +428,10 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             ) {
               let derechoOReves = arrayPosiblesPeonN.slice();
               derechoOReves.forEach((ele) => {
-                if (ele.includes("-")) {
-                  console.log("no habilitado.");
+                let numero1 = ele.slice(9);
+                let numero = parseFloat(numero1);
+                if (ele.includes("-") || numero > 64 || numero === 0) {
+                  console.log("");
                 } else {
                   let eleInLet = document.getElementById(ele);
 
@@ -403,6 +463,49 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               });
             }
           });
+        }
+
+        let comerPeonB = [];
+        let comerPeonN = [];
+
+        let comerPeon = casillaOrig.slice(9);
+        let opcionPeonComer = parseInt(comerPeon);
+
+        comerPeonB.push(`casillero${opcionPeonComer + 7}`);
+        comerPeonB.push(`casillero${opcionPeonComer + 9}`);
+        comerPeonN.push(`casillero${opcionPeonComer - 7}`);
+        comerPeonN.push(`casillero${opcionPeonComer - 9}`);
+
+        if (casOritInt < casDestItn) {
+          if (bynCapturando.hasChildNodes() === true) {
+            comerPeonB.forEach((element) => {
+              if (
+                byn === true &&
+                compFinByn === false &&
+                element === casillaDest
+              ) {
+                count++;
+                kickImgBoardPrev(eliminarHijoNativo);
+                comerPieza(comerPiezaDest);
+                crearImagen(destino, "." + corregirURL);
+              }
+            });
+          }
+        } else {
+          if (bynCapturando.hasChildNodes() === true) {
+            comerPeonN.forEach((element) => {
+              if (
+                byn === false &&
+                compFinByn === true &&
+                element === casillaDest
+              ) {
+                count++;
+                kickImgBoardPrev(eliminarHijoNativo);
+                comerPieza(comerPiezaDest);
+                crearImagen(destino, "." + corregirURL);
+              }
+            });
+          }
         }
       }
 
@@ -451,13 +554,36 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               derechoOReves.shift();
             }
             derechoOReves.forEach((ele) => {
-              if (ele.includes("-")) {
-                console.log("no habilitado.");
+              let numero1 = ele.slice(9);
+              let numero = parseFloat(numero1);
+              if (ele.includes("-") || numero > 64 || numero === 0) {
+                console.log("");
               } else {
                 let eleInLet = document.getElementById(ele);
-
                 if (eleInLet.hasChildNodes()) {
-                  tieneNoTiene++;
+                  if (
+                    byn === true &&
+                    compFinByn === false &&
+                    ele === casillaDest &&
+                    tieneNoTiene === 0
+                  ) {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  } else if (
+                    byn === false &&
+                    compFinByn === true &&
+                    ele === casillaDest &&
+                    tieneNoTiene === 0
+                  ) {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  } else {
+                    tieneNoTiene++;
+                  }
                 } else {
                   if (ele === casillaDest && tieneNoTiene === 0) {
                     count++;
@@ -486,12 +612,28 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             reinaOpt3,
             reinaOpt4,
           ];
+          if (cortarDiagonal1.length >= 1) {
+            arrayDePosiblesReina.splice(0, 1);
+            arrayDePosiblesReina.splice(0, 0, casillaOrig);
+          }
+          if (cortarDiagonal2.length >= 1) {
+            arrayDePosiblesReina.splice(1, 1);
+            arrayDePosiblesReina.splice(1, 0, casillaOrig);
+          }
+          if (cortarDiagonal3.length >= 1) {
+            arrayDePosiblesReina.splice(2, 1);
+            arrayDePosiblesReina.splice(2, 0, casillaOrig);
+          }
+          if (cortarDiagonal4.length >= 1) {
+            arrayDePosiblesReina.splice(3, 1);
+            arrayDePosiblesReina.splice(3, 0, casillaOrig);
+          }
 
           arrayDePosiblesReina.forEach((opt) => {
             let numero1 = opt.slice(9);
             let numero = parseFloat(numero1);
             if (opt.includes("-") || numero > 64 || numero === 0) {
-              console.log("no habilitado.");
+              console.log("");
             } else {
               let test = document.getElementById(opt);
               if (test.hasChildNodes()) {
@@ -511,24 +653,6 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               }
             }
           });
-
-          if (cortarDiagonal1.length >= 1) {
-            arrayDePosiblesReina.splice(0, 1);
-            arrayDePosiblesReina.splice(0, 0, casillaOrig);
-          }
-          if (cortarDiagonal2.length >= 1) {
-            arrayDePosiblesReina.splice(1, 1);
-            arrayDePosiblesReina.splice(1, 0, casillaOrig);
-          }
-          if (cortarDiagonal3.length >= 1) {
-            arrayDePosiblesReina.splice(2, 1);
-            arrayDePosiblesReina.splice(2, 0, casillaOrig);
-          }
-          if (cortarDiagonal4.length >= 1) {
-            arrayDePosiblesReina.splice(3, 1);
-            arrayDePosiblesReina.splice(3, 0, casillaOrig);
-          }
-
           arrayDePosiblesReina.forEach((posibilidad) => {
             if (
               casillaDest === posibilidad &&
@@ -552,13 +676,37 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 derechoOReves.shift();
               }
               derechoOReves.forEach((ele) => {
-                if (ele.includes("-")) {
-                  console.log("no habilitado.");
+                let numero1 = ele.slice(9);
+                let numero = parseFloat(numero1);
+                if (ele.includes("-") || numero > 64 || numero === 0) {
+                  console.log("");
                 } else {
                   let eleInLet = document.getElementById(ele);
 
                   if (eleInLet.hasChildNodes()) {
-                    tieneNoTiene++;
+                    if (
+                      byn === true &&
+                      compFinByn === false &&
+                      ele === casillaDest &&
+                      tieneNoTiene === 0
+                    ) {
+                      count++;
+                      kickImgBoardPrev(eliminarHijoNativo);
+                      comerPieza(comerPiezaDest);
+                      crearImagen(destino, "." + corregirURL);
+                    } else if (
+                      byn === false &&
+                      compFinByn === true &&
+                      ele === casillaDest &&
+                      tieneNoTiene === 0
+                    ) {
+                      count++;
+                      kickImgBoardPrev(eliminarHijoNativo);
+                      comerPieza(comerPiezaDest);
+                      crearImagen(destino, "." + corregirURL);
+                    } else {
+                      tieneNoTiene++;
+                    }
                   } else {
                     if (ele === casillaDest && tieneNoTiene === 0) {
                       count++;
@@ -611,10 +759,29 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             derechoOReves.forEach((ele) => {
               let eleInLet = document.getElementById(ele);
               if (eleInLet.hasChildNodes()) {
-                // if(byn === true && tieneNoTiene === 0){
-                //     console.log("esa casilla es blanca")
-                // }
-                tieneNoTiene++;
+                if (
+                  byn === true &&
+                  compFinByn === false &&
+                  ele === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else if (
+                  byn === false &&
+                  compFinByn === true &&
+                  ele === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else {
+                  tieneNoTiene++;
+                }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
                   count++;
@@ -651,10 +818,29 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             derechoOReves.forEach((ele) => {
               let eleInLet = document.getElementById(ele);
               if (eleInLet.hasChildNodes()) {
-                // if(byn === true && tieneNoTiene === 0){
-                //     console.log("esa casilla es blanca")
-                // }
-                tieneNoTiene++;
+                if (
+                  byn === true &&
+                  compFinByn === false &&
+                  ele === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else if (
+                  byn === false &&
+                  compFinByn === true &&
+                  ele === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else {
+                  tieneNoTiene++;
+                }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
                   count++;
@@ -709,10 +895,29 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             derechoOReves.forEach((ele) => {
               let eleInLet = document.getElementById(ele);
               if (eleInLet.hasChildNodes()) {
-                // if(byn === true && tieneNoTiene === 0){
-                //     console.log("esa casilla es blanca")
-                // }
-                tieneNoTiene++;
+                if (
+                  byn === true &&
+                  compFinByn === false &&
+                  ele === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else if (
+                  byn === false &&
+                  compFinByn === true &&
+                  ele === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else {
+                  tieneNoTiene++;
+                }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
                   count++;
@@ -749,10 +954,29 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             derechoOReves.forEach((ele) => {
               let eleInLet = document.getElementById(ele);
               if (eleInLet.hasChildNodes()) {
-                // if(byn === true && tieneNoTiene === 0){
-                //     console.log("esa casilla es blanca")
-                // }
-                tieneNoTiene++;
+                if (
+                  byn === true &&
+                  compFinByn === false &&
+                  ele === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else if (
+                  byn === false &&
+                  compFinByn === true &&
+                  ele === casillaDest &&
+                  tieneNoTiene === 0
+                ) {
+                  count++;
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                } else {
+                  tieneNoTiene++;
+                }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
                   count++;
