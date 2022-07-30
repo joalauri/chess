@@ -988,19 +988,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             });
           }
         });
-
-        // if(byn === true){
-
-        //     console.log("moviste una torre blanca");
-
-        // }else{
-        //     console.log("moviste una torre negra");
-
-        // }
       }
-      //*************inicio y fin***************
-      //   console.log(destino + " final");
-      //   crearImagen(destino, "." + corregirURL);
     }
   });
   tieneNoTiene = 0;
