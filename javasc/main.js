@@ -84,11 +84,18 @@ const updateTable = () => {
   table.innerHTML = html;
 };
 let contadorInterno = 0;
-
+let modoPrueba = false;
+let amenazaARey = 0;
 let imagenDeReserva = null;
 let espacioDeReserva = null;
 let posibilidad1 = [];
 let posibilidad2 = [];
+let torre1 = 0;
+let torre2 = 0;
+let torre3 = 0;
+let torre4 = 0;
+let reyBlancoMove = 0;
+let reyNegroMove = 0;
 // let contadorPeon = ""
 
 const addEvent = (casillas) => {
@@ -97,7 +104,7 @@ const addEvent = (casillas) => {
     casilla.addEventListener("click", () => {
       if (contadorInterno === 0) {
         if (casilla.childElementCount == 0) {
-          console.log("");
+          // console.log("");
         } else {
           let imagenDentroBase = casilla.firstElementChild.firstElementChild;
           imagenDeReserva = imagenDentroBase.id;
@@ -169,19 +176,82 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
       let destino = casillero.numeroDeCasilla.id;
       let eliminarPieza = document.getElementById(casillero.numeroDeCasilla.id);
       comerPiezaDest = eliminarPieza;
-      //*************inicio y fin***************
+      /*
+       *
+       *
+       *
+       */
       if (comparacion07 === "caballo") {
         let casillaDeCab = casillaOrig.slice(9);
         let casillaDeCaballo = parseInt(casillaDeCab);
+        let cabCont = 0;
         for (let i = 1; i < 2; i++) {
-          let cabOpt1 = `casillero${casillaDeCaballo + i * 17}`;
-          let cabOpt2 = `casillero${casillaDeCaballo + i * -17}`;
-          let cabOpt3 = `casillero${casillaDeCaballo + i * 15}`;
-          let cabOpt4 = `casillero${casillaDeCaballo + i * -15}`;
-          let cabOpt5 = `casillero${casillaDeCaballo + i * 10}`;
-          let cabOpt6 = `casillero${casillaDeCaballo + i * -10}`;
-          let cabOpt7 = `casillero${casillaDeCaballo + i * 6}`;
-          let cabOpt8 = `casillero${casillaDeCaballo + i * -6}`;
+          let cabOpt1;
+          let cabOpt2;
+          let cabOpt3;
+          let cabOpt4;
+          let cabOpt5;
+          let cabOpt6;
+          let cabOpt7;
+          let cabOpt8;
+          for (let e = 0; e < 9; e++) {
+            let cabCol1 = e * 8 + 1;
+            let cabCol2 = e * 8 + 2;
+            let cabCol3 = e * 8 + 7;
+            let cabCol4 = e * 8 + 8;
+            if (casillaDeCaballo === cabCol1 && cabCont === 0) {
+              cabOpt1 = `casillero${casillaDeCaballo + i * 17}`;
+              cabOpt2 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt3 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt4 = `casillero${casillaDeCaballo + i * -15}`;
+              cabOpt5 = `casillero${casillaDeCaballo + i * 10}`;
+              cabOpt6 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt7 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt8 = `casillero${casillaDeCaballo + i * -6}`;
+              cabCont = 1;
+            } else if (casillaDeCaballo === cabCol2 && cabCont === 0) {
+              cabOpt1 = `casillero${casillaDeCaballo + i * 17}`;
+              cabOpt2 = `casillero${casillaDeCaballo + i * -17}`;
+              cabOpt3 = `casillero${casillaDeCaballo + i * 15}`;
+              cabOpt4 = `casillero${casillaDeCaballo + i * -15}`;
+              cabOpt5 = `casillero${casillaDeCaballo + i * 10}`;
+              cabOpt6 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt7 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt8 = `casillero${casillaDeCaballo + i * -6}`;
+              cabCont = 1;
+            } else if (casillaDeCaballo === cabCol3 && cabCont === 0) {
+              cabOpt1 = `casillero${casillaDeCaballo + i * 17}`;
+              cabOpt2 = `casillero${casillaDeCaballo + i * -17}`;
+              cabOpt3 = `casillero${casillaDeCaballo + i * 15}`;
+              cabOpt4 = `casillero${casillaDeCaballo + i * -15}`;
+              cabOpt5 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt6 = `casillero${casillaDeCaballo + i * -10}`;
+              cabOpt7 = `casillero${casillaDeCaballo + i * 6}`;
+              cabOpt8 = `casillero${casillaDeCaballo + i * 0}`;
+              cabCont = 1;
+            } else if (casillaDeCaballo === cabCol4 && cabCont === 0) {
+              cabOpt1 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt2 = `casillero${casillaDeCaballo + i * -17}`;
+              cabOpt3 = `casillero${casillaDeCaballo + i * 15}`;
+              cabOpt4 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt5 = `casillero${casillaDeCaballo + i * 0}`;
+              cabOpt6 = `casillero${casillaDeCaballo + i * -10}`;
+              cabOpt7 = `casillero${casillaDeCaballo + i * 6}`;
+              cabOpt8 = `casillero${casillaDeCaballo + i * 0}`;
+              cabCont = 1;
+            }
+          }
+          if (cabCont === 0) {
+            cabOpt1 = `casillero${casillaDeCaballo + i * 17}`;
+            cabOpt2 = `casillero${casillaDeCaballo + i * -17}`;
+            cabOpt3 = `casillero${casillaDeCaballo + i * 15}`;
+            cabOpt4 = `casillero${casillaDeCaballo + i * -15}`;
+            cabOpt5 = `casillero${casillaDeCaballo + i * 10}`;
+            cabOpt6 = `casillero${casillaDeCaballo + i * -10}`;
+            cabOpt7 = `casillero${casillaDeCaballo + i * 6}`;
+            cabOpt8 = `casillero${casillaDeCaballo + i * -6}`;
+            cabCont = 1;
+          }
           let arrayDePosiblesCaballo = [
             cabOpt1,
             cabOpt2,
@@ -203,7 +273,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               let numero1 = element.slice(9);
               let numero = parseFloat(numero1);
               if (element.includes("-") || numero > 64 || numero === 0) {
-                console.log("");
+                // console.log("");
               } else if (eleInLet.hasChildNodes()) {
                 if (
                   byn === true &&
@@ -211,20 +281,46 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   element === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  }
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   element === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  }
+                } else if (
+                  modoPrueba === true &&
+                  byn === true &&
+                  compFinByn === true &&
+                  tieneNoTiene === 0
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
+                } else if (
+                  modoPrueba === true &&
+                  byn === false &&
+                  compFinByn === false &&
+                  tieneNoTiene === 0
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
                 } else {
                   tieneNoTiene++;
                 }
@@ -232,16 +328,24 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 eleInLet.hasChildNodes() === false &&
                 element === casillaDest
               ) {
-                kickImgBoardPrev(eliminarHijoNativo);
-                comerPieza(comerPiezaDest);
-                crearImagen(destino, "." + corregirURL);
+                if (modoPrueba === true) {
+                  amenazaARey++;
+                  tieneNoTiene++;
+                } else {
+                  kickImgBoardPrev(eliminarHijoNativo);
+                  comerPieza(comerPiezaDest);
+                  crearImagen(destino, "." + corregirURL);
+                }
               }
             }
           });
         }
       }
-      //*************inicio y fin***************
-
+      /*
+       *
+       *
+       *
+       */
       if (comparacion05 === "alfil") {
         let casillaDeAlfil = casillaOrig.slice(9);
         let casillaDeAlfilN = parseInt(casillaDeAlfil);
@@ -277,7 +381,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             let numero1 = opt.slice(9);
             let numero = parseFloat(numero1);
             if (opt.includes("-") || numero > 64 || numero === 0) {
-              console.log("");
+              // console.log("");
             } else {
               let test = document.getElementById(opt);
               if (test.hasChildNodes()) {
@@ -321,7 +425,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               }
               derechoOReves.forEach((ele) => {
                 if (ele.includes("-")) {
-                  console.log("");
+                  // console.log("");
                 } else {
                   if (casillaDest === ele) {
                     let eleInLet = document.getElementById(ele);
@@ -332,29 +436,60 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         ele === casillaDest &&
                         tieneNoTiene === 0
                       ) {
-                        count++;
-                        kickImgBoardPrev(eliminarHijoNativo);
-                        comerPieza(comerPiezaDest);
-                        crearImagen(destino, "." + corregirURL);
+                        if (modoPrueba === true) {
+                          amenazaARey++;
+                          tieneNoTiene++;
+                        } else {
+                          count++;
+                          kickImgBoardPrev(eliminarHijoNativo);
+                          comerPieza(comerPiezaDest);
+                          crearImagen(destino, "." + corregirURL);
+                        }
                       } else if (
                         byn === false &&
                         compFinByn === true &&
                         ele === casillaDest &&
                         tieneNoTiene === 0
                       ) {
-                        count++;
-                        kickImgBoardPrev(eliminarHijoNativo);
-                        comerPieza(comerPiezaDest);
-                        crearImagen(destino, "." + corregirURL);
+                        if (modoPrueba === true) {
+                          amenazaARey++;
+                          tieneNoTiene++;
+                        } else {
+                          count++;
+                          kickImgBoardPrev(eliminarHijoNativo);
+                          comerPieza(comerPiezaDest);
+                          crearImagen(destino, "." + corregirURL);
+                        }
+                      } else if (
+                        modoPrueba === true &&
+                        byn === true &&
+                        compFinByn === true &&
+                        tieneNoTiene === 0
+                      ) {
+                        amenazaARey++;
+                        tieneNoTiene++;
+                      } else if (
+                        modoPrueba === true &&
+                        byn === false &&
+                        compFinByn === false &&
+                        tieneNoTiene === 0
+                      ) {
+                        amenazaARey++;
+                        tieneNoTiene++;
                       } else {
                         tieneNoTiene++;
                       }
                     } else {
                       if (ele === casillaDest && tieneNoTiene === 0) {
-                        count++;
-                        kickImgBoardPrev(eliminarHijoNativo);
-                        comerPieza(comerPiezaDest);
-                        crearImagen(destino, "." + corregirURL);
+                        if (modoPrueba === true) {
+                          amenazaARey++;
+                          tieneNoTiene++;
+                        } else {
+                          count++;
+                          kickImgBoardPrev(eliminarHijoNativo);
+                          comerPieza(comerPiezaDest);
+                          crearImagen(destino, "." + corregirURL);
+                        }
                       }
                     }
                   }
@@ -364,8 +499,11 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
           });
         } // cierre del for ---> de diagonal.
       }
-
-      //*************inicio y fin***************
+      /*
+       *
+       *
+       *
+       */
       if (comparacion04 === "peon") {
         let arrayPosiblesPeonB = [];
         let arrayPosiblesPeonN = [];
@@ -388,7 +526,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 let numero1 = ele.slice(9);
                 let numero = parseFloat(numero1);
                 if (ele.includes("-") || numero > 64 || numero === 0) {
-                  console.log("");
+                  // console.log("");
                 } else {
                   let eleInLet = document.getElementById(ele);
                   if (eleInLet.hasChildNodes()) {
@@ -400,17 +538,25 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           (casDestItn === casOritInt + 8 && count === 0) ||
                           (casDestItn === casOritInt + 16 && count === 0)
                         ) {
-                          count++;
-                          kickImgBoardPrev(eliminarHijoNativo);
-                          comerPieza(comerPiezaDest);
-                          crearImagen(destino, "." + corregirURL);
+                          if (modoPrueba === true) {
+                            console.log("imposible");
+                          } else {
+                            count++;
+                            kickImgBoardPrev(eliminarHijoNativo);
+                            comerPieza(comerPiezaDest);
+                            crearImagen(destino, "." + corregirURL);
+                          }
                         }
                       } else {
                         if (casDestItn === casOritInt + 8 && count === 0) {
-                          count++;
-                          kickImgBoardPrev(eliminarHijoNativo);
-                          comerPieza(comerPiezaDest);
-                          crearImagen(destino, "." + corregirURL);
+                          if (modoPrueba === true) {
+                            console.log("imposible");
+                          } else {
+                            count++;
+                            kickImgBoardPrev(eliminarHijoNativo);
+                            comerPieza(comerPiezaDest);
+                            crearImagen(destino, "." + corregirURL);
+                          }
                         }
                       }
                     }
@@ -431,7 +577,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 let numero1 = ele.slice(9);
                 let numero = parseFloat(numero1);
                 if (ele.includes("-") || numero > 64 || numero === 0) {
-                  console.log("");
+                  // console.log("");
                 } else {
                   let eleInLet = document.getElementById(ele);
 
@@ -444,17 +590,25 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           (casDestItn === casOritInt - 8 && count === 0) ||
                           (casDestItn === casOritInt - 16 && count === 0)
                         ) {
-                          count++;
-                          kickImgBoardPrev(eliminarHijoNativo);
-                          comerPieza(comerPiezaDest);
-                          crearImagen(destino, "." + corregirURL);
+                          if (modoPrueba === true) {
+                            console.log("imposible");
+                          } else {
+                            count++;
+                            kickImgBoardPrev(eliminarHijoNativo);
+                            comerPieza(comerPiezaDest);
+                            crearImagen(destino, "." + corregirURL);
+                          }
                         }
                       } else {
                         if (casDestItn === casOritInt - 8 && count === 0) {
-                          count++;
-                          kickImgBoardPrev(eliminarHijoNativo);
-                          comerPieza(comerPiezaDest);
-                          crearImagen(destino, "." + corregirURL);
+                          if (modoPrueba === true) {
+                            console.log("imposible");
+                          } else {
+                            count++;
+                            kickImgBoardPrev(eliminarHijoNativo);
+                            comerPieza(comerPiezaDest);
+                            crearImagen(destino, "." + corregirURL);
+                          }
                         }
                       }
                     }
@@ -476,7 +630,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
         comerPeonN.push(`casillero${opcionPeonComer - 7}`);
         comerPeonN.push(`casillero${opcionPeonComer - 9}`);
 
-        if (casOritInt < casDestItn) {
+        if (casOritInt < casDestItn && modoPrueba === false) {
           if (bynCapturando.hasChildNodes() === true) {
             comerPeonB.forEach((element) => {
               if (
@@ -491,7 +645,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               }
             });
           }
-        } else {
+        } else if (casOritInt > casDestItn && modoPrueba === false) {
           if (bynCapturando.hasChildNodes() === true) {
             comerPeonN.forEach((element) => {
               if (
@@ -506,11 +660,33 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               }
             });
           }
+        } else if (modoPrueba === true) {
+          if (casOritInt < casDestItn) {
+            comerPeonB.forEach((element) => {
+              if (element === casillaDest) {
+                amenazaARey++;
+              }
+            });
+          } else {
+            comerPeonN.forEach((element) => {
+              if (element === casillaDest) {
+                amenazaARey++;
+              }
+            });
+          }
         }
       }
 
-      //*************inicio y fin***************
+      /*
+       *
+       *
+       *
+       */
       if (comparacion03 === "rey") {
+        if (modoPrueba === false) {
+          moverRey(casillaDest, byn);
+        }
+
         let opcionRey = casillaOrig.slice(9);
         let opcionReyN = parseInt(opcionRey);
         let reyMove1 = `casillero${opcionReyN + 1}`;
@@ -531,73 +707,212 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
           reyMove7,
           reyMove8,
         ];
-        arrayPosiblesRey.forEach((posibilidad) => {
-          if (
-            casillaDest === posibilidad &&
-            casillaOrig != casillaDest &&
-            count < 1
-          ) {
-            let derechoOReves = arrayPosiblesRey.slice();
 
-            if (casOritInt > casDestItn) {
-              derechoOReves.reverse();
-            } //dar vuelta el resultado para convalidar en orden
-            let countOrigen = 0;
-            derechoOReves.forEach((element) => {
-              if (element != casillaDest && countFin === 0) {
-                countOrigen++;
-              } else if (element === casillaDest) {
-                countFin++;
-              }
-            });
-            for (let i = countOrigen; i > 0; i--) {
-              derechoOReves.shift();
+        if (
+          casillaDest === "casillero3" &&
+          byn === true &&
+          modoPrueba === false
+        ) {
+          let cas2 = document.getElementById("casillero2");
+          let cas3 = document.getElementById("casillero3");
+          let cas4 = document.getElementById("casillero4");
+
+          if (
+            cas2.hasChildNodes() === false &&
+            cas3.hasChildNodes() === false &&
+            cas4.hasChildNodes() === false
+          ) {
+            moverRey("casillero2", byn);
+            moverRey("casillero3", byn);
+            moverRey("casillero4", byn);
+            if (amenazaARey === 0 && torre1 === 0 && reyBlancoMove === 0) {
+              kickImgBoardPrev(document.getElementById("casillero5"));
+              kickImgBoardPrev(document.getElementById("casillero1"));
+              crearImagen("casillero3", "./assets/reyBlanco.png");
+              crearImagen("casillero4", "./assets/torreBlanca.png");
             }
-            derechoOReves.forEach((ele) => {
-              let numero1 = ele.slice(9);
-              let numero = parseFloat(numero1);
-              if (ele.includes("-") || numero > 64 || numero === 0) {
-                console.log("");
-              } else {
-                let eleInLet = document.getElementById(ele);
-                if (eleInLet.hasChildNodes()) {
-                  if (
-                    byn === true &&
-                    compFinByn === false &&
-                    ele === casillaDest &&
-                    tieneNoTiene === 0
-                  ) {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                  } else if (
-                    byn === false &&
-                    compFinByn === true &&
-                    ele === casillaDest &&
-                    tieneNoTiene === 0
-                  ) {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                  } else {
-                    tieneNoTiene++;
-                  }
+          }
+        } else if (
+          casillaDest === "casillero7" &&
+          byn === true &&
+          modoPrueba === false
+        ) {
+          let cas6 = document.getElementById("casillero6");
+          let cas7 = document.getElementById("casillero7");
+          if (
+            cas6.hasChildNodes() === false &&
+            cas7.hasChildNodes() === false
+          ) {
+            moverRey("casillero6", byn);
+            moverRey("casillero7", byn);
+            if (amenazaARey === 0 && torre2 === 0 && reyBlancoMove === 0) {
+              kickImgBoardPrev(document.getElementById("casillero5"));
+              kickImgBoardPrev(document.getElementById("casillero8"));
+              crearImagen("casillero7", "./assets/reyBlanco.png");
+              crearImagen("casillero6", "./assets/torreBlanca.png");
+            }
+          }
+        } else if (
+          casillaDest === "casillero59" &&
+          byn === false &&
+          modoPrueba === false
+        ) {
+          let cas58 = document.getElementById("casillero58");
+          let cas59 = document.getElementById("casillero59");
+          let cas60 = document.getElementById("casillero60");
+          if (
+            cas58.hasChildNodes() === false &&
+            cas59.hasChildNodes() === false &&
+            cas60.hasChildNodes() === false
+          ) {
+            moverRey("casillero58", byn);
+            moverRey("casillero59", byn);
+            moverRey("casillero60", byn);
+            if (amenazaARey === 0 && torre3 === 0 && reyNegroMove === 0) {
+              kickImgBoardPrev(document.getElementById("casillero57"));
+              kickImgBoardPrev(document.getElementById("casillero61"));
+              crearImagen("casillero59", "./assets/reyNegro.png");
+              crearImagen("casillero60", "./assets/torreNegra.png");
+            }
+          }
+        } else if (
+          casillaDest === "casillero63" &&
+          byn === false &&
+          modoPrueba === false
+        ) {
+          let cas62 = document.getElementById("casillero62");
+          let cas63 = document.getElementById("casillero63");
+          if (
+            cas62.hasChildNodes() === false &&
+            cas63.hasChildNodes() === false
+          ) {
+            moverRey("casillero62", byn);
+            moverRey("casillero63", byn);
+            if (amenazaARey === 0 && torre4 === 0 && reyNegroMove === 0) {
+              kickImgBoardPrev(document.getElementById("casillero64"));
+              kickImgBoardPrev(document.getElementById("casillero61"));
+              crearImagen("casillero63", "./assets/reyNegro.png");
+              crearImagen("casillero62", "./assets/torreNegra.png");
+            }
+          }
+        } else {
+          arrayPosiblesRey.forEach((posibilidad) => {
+            if (
+              casillaDest === posibilidad &&
+              casillaOrig != casillaDest &&
+              count < 1
+            ) {
+              let derechoOReves = arrayPosiblesRey.slice();
+
+              if (casOritInt > casDestItn) {
+                derechoOReves.reverse();
+              } //dar vuelta el resultado para convalidar en orden
+              let countOrigen = 0;
+              derechoOReves.forEach((element) => {
+                if (element != casillaDest && countFin === 0) {
+                  countOrigen++;
+                } else if (element === casillaDest) {
+                  countFin++;
+                }
+              });
+              for (let i = countOrigen; i > 0; i--) {
+                derechoOReves.shift();
+              }
+              derechoOReves.forEach((ele) => {
+                let numero1 = ele.slice(9);
+                let numero = parseFloat(numero1);
+                if (ele.includes("-") || numero > 64 || numero === 0) {
+                  // console.log("");
                 } else {
-                  if (ele === casillaDest && tieneNoTiene === 0) {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
+                  let eleInLet = document.getElementById(ele);
+                  if (eleInLet.hasChildNodes()) {
+                    if (
+                      byn === true &&
+                      compFinByn === false &&
+                      ele === casillaDest &&
+                      tieneNoTiene === 0
+                    ) {
+                      if (modoPrueba === true) {
+                        amenazaARey++;
+                        tieneNoTiene++;
+                      } else if (amenazaARey === 0) {
+                        count++;
+                        kickImgBoardPrev(eliminarHijoNativo);
+                        comerPieza(comerPiezaDest);
+                        crearImagen(destino, "." + corregirURL);
+                        if (byn === true) {
+                          reyBlancoMove = 1;
+                        } else if (byn === false) {
+                          reynegroMove = 1;
+                        }
+                      }
+                    } else if (
+                      byn === false &&
+                      compFinByn === true &&
+                      ele === casillaDest &&
+                      tieneNoTiene === 0
+                    ) {
+                      if (modoPrueba === true) {
+                        amenazaARey++;
+                        tieneNoTiene++;
+                      } else if (amenazaARey === 0) {
+                        count++;
+                        kickImgBoardPrev(eliminarHijoNativo);
+                        comerPieza(comerPiezaDest);
+                        crearImagen(destino, "." + corregirURL);
+                      }
+                    } else if (
+                      modoPrueba === true &&
+                      byn === true &&
+                      compFinByn === true &&
+                      tieneNoTiene === 0
+                    ) {
+                      amenazaARey++;
+                      tieneNoTiene++;
+                    } else if (
+                      modoPrueba === true &&
+                      byn === false &&
+                      compFinByn === false &&
+                      tieneNoTiene === 0
+                    ) {
+                      amenazaARey++;
+                      tieneNoTiene++;
+                    } else {
+                      tieneNoTiene++;
+                    }
+                  } else {
+                    if (ele === casillaDest && tieneNoTiene === 0) {
+                      if (modoPrueba === true) {
+                        amenazaARey++;
+                        tieneNoTiene++;
+                      } else if (amenazaARey === 0) {
+                        count++;
+                        kickImgBoardPrev(eliminarHijoNativo);
+                        comerPieza(comerPiezaDest);
+                        crearImagen(destino, "." + corregirURL);
+                        if (byn === true) {
+                          reyBlancoMove = 1;
+                        } else if (byn === false) {
+                          reyNegroMove = 1;
+                        }
+                      }
+                    }
                   }
                 }
-              }
-            });
-          }
-        });
+              });
+            }
+          });
+        }
+
+        if (modoPrueba === false) {
+          amenazaARey = 0;
+        }
       }
-      //*************inicio y fin***************
+      /*
+       *
+       *
+       *
+       */
       if (comparacion05 === "reina") {
         let casillaDeReina = casillaOrig.slice(9);
         let casillaDeReinaN = parseInt(casillaDeReina);
@@ -633,7 +948,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             let numero1 = opt.slice(9);
             let numero = parseFloat(numero1);
             if (opt.includes("-") || numero > 64 || numero === 0) {
-              console.log("");
+              // console.log("");
             } else {
               let test = document.getElementById(opt);
               if (test.hasChildNodes()) {
@@ -679,7 +994,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 let numero1 = ele.slice(9);
                 let numero = parseFloat(numero1);
                 if (ele.includes("-") || numero > 64 || numero === 0) {
-                  console.log("");
+                  // console.log("");
                 } else {
                   let eleInLet = document.getElementById(ele);
 
@@ -690,29 +1005,62 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                       ele === casillaDest &&
                       tieneNoTiene === 0
                     ) {
-                      count++;
-                      kickImgBoardPrev(eliminarHijoNativo);
-                      comerPieza(comerPiezaDest);
-                      crearImagen(destino, "." + corregirURL);
+                      if (modoPrueba === true) {
+                        amenazaARey++;
+                        tieneNoTiene++;
+                      } else {
+                        count++;
+                        kickImgBoardPrev(eliminarHijoNativo);
+                        comerPieza(comerPiezaDest);
+                        crearImagen(destino, "." + corregirURL);
+                      }
                     } else if (
                       byn === false &&
                       compFinByn === true &&
                       ele === casillaDest &&
                       tieneNoTiene === 0
                     ) {
-                      count++;
-                      kickImgBoardPrev(eliminarHijoNativo);
-                      comerPieza(comerPiezaDest);
-                      crearImagen(destino, "." + corregirURL);
+                      if (modoPrueba === true) {
+                        amenazaARey++;
+                        tieneNoTiene++;
+                      } else {
+                        count++;
+                        kickImgBoardPrev(eliminarHijoNativo);
+                        comerPieza(comerPiezaDest);
+                        crearImagen(destino, "." + corregirURL);
+                      }
+                    } else if (
+                      modoPrueba === true &&
+                      byn === true &&
+                      compFinByn === true &&
+                      tieneNoTiene === 0 &&
+                      casillaDest === ele
+                    ) {
+                      amenazaARey++;
+                      tieneNoTiene++;
+                    } else if (
+                      modoPrueba === true &&
+                      byn === false &&
+                      compFinByn === false &&
+                      tieneNoTiene === 0 &&
+                      casillaDest === ele
+                    ) {
+                      amenazaARey++;
+                      tieneNoTiene++;
                     } else {
                       tieneNoTiene++;
                     }
                   } else {
                     if (ele === casillaDest && tieneNoTiene === 0) {
-                      count++;
-                      kickImgBoardPrev(eliminarHijoNativo);
-                      comerPieza(comerPiezaDest);
-                      crearImagen(destino, "." + corregirURL);
+                      if (modoPrueba === true) {
+                        amenazaARey++;
+                        tieneNoTiene++;
+                      } else {
+                        count++;
+                        kickImgBoardPrev(eliminarHijoNativo);
+                        comerPieza(comerPiezaDest);
+                        crearImagen(destino, "." + corregirURL);
+                      }
                     }
                   }
                 }
@@ -765,29 +1113,62 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  }
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  }
+                } else if (
+                  modoPrueba === true &&
+                  byn === true &&
+                  compFinByn === true &&
+                  tieneNoTiene === 0 &&
+                  casillaDest === ele
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
+                } else if (
+                  modoPrueba === true &&
+                  byn === false &&
+                  compFinByn === false &&
+                  tieneNoTiene === 0 &&
+                  casillaDest === ele
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
                 } else {
                   tieneNoTiene++;
                 }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  }
                 }
               }
             });
@@ -824,36 +1205,73 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  }
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  }
+                } else if (
+                  modoPrueba === true &&
+                  byn === true &&
+                  compFinByn === true &&
+                  tieneNoTiene === 0 &&
+                  casillaDest === ele
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
+                } else if (
+                  modoPrueba === true &&
+                  byn === false &&
+                  compFinByn === false &&
+                  tieneNoTiene === 0 &&
+                  casillaDest === ele
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
                 } else {
                   tieneNoTiene++;
                 }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                  }
                 }
               }
             });
           }
         });
       }
-      //*************inicio y fin***************
+      /*
+       *
+       *
+       *
+       */
       if (comparacion05 === "torre") {
         columna.forEach((column1a8) => {
           column1a8.forEach((element) => {
@@ -901,29 +1319,65 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                    torreisTrue(casillaOrig);
+                  }
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                    torreisTrue(casillaOrig);
+                  }
+                } else if (
+                  modoPrueba === true &&
+                  byn === true &&
+                  compFinByn === true &&
+                  tieneNoTiene === 0 &&
+                  casillaDest === ele
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
+                } else if (
+                  modoPrueba === true &&
+                  byn === false &&
+                  compFinByn === false &&
+                  tieneNoTiene === 0 &&
+                  casillaDest === ele
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
                 } else {
                   tieneNoTiene++;
                 }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                    torreisTrue(casillaOrig);
+                  }
                 }
               }
             });
@@ -960,35 +1414,76 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                    torreisTrue(casillaOrig);
+                  }
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                    torreisTrue(casillaOrig);
+                  }
+                } else if (
+                  modoPrueba === true &&
+                  byn === true &&
+                  compFinByn === true &&
+                  tieneNoTiene === 0 &&
+                  casillaDest === ele
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
+                } else if (
+                  modoPrueba === true &&
+                  byn === false &&
+                  compFinByn === false &&
+                  tieneNoTiene === 0 &&
+                  casillaDest === ele
+                ) {
+                  amenazaARey++;
+                  tieneNoTiene++;
                 } else {
                   tieneNoTiene++;
                 }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
-                  count++;
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
+                  if (modoPrueba === true) {
+                    amenazaARey++;
+                    tieneNoTiene++;
+                  } else {
+                    count++;
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    crearImagen(destino, "." + corregirURL);
+                    torreisTrue(casillaOrig);
+                  }
                 }
               }
             });
           }
         });
       }
+      /*
+       *
+       *
+       *
+       */
     }
   });
   tieneNoTiene = 0;
@@ -1093,6 +1588,39 @@ function crearImagen(element, imagen) {
     .replace("./assets/", "")
     .replace(".png", "")}${element.replace("casillero", "")}">`;
   document.getElementById(element).appendChild(creacion);
+}
+
+function moverRey(destino, byn) {
+  for (let i = 1; i < 65; i++) {
+    let probabilidad = document.getElementById(`casillero${i}`);
+
+    if (probabilidad.hasChildNodes() === true) {
+      let casilleroID = `casillero${i}`;
+      let objDe = probabilidad.firstChild.firstChild;
+      let objeDeAmenaza = objDe.id;
+      let objDeAmenazaBYN = objeDeAmenaza.includes("Blanc");
+      modoPrueba = true;
+
+      if (objDeAmenazaBYN === true && byn === false) {
+        modificarJugadas(casilleroID, destino, objeDeAmenaza);
+      } else if (objDeAmenazaBYN === false && byn === true) {
+        modificarJugadas(casilleroID, destino, objeDeAmenaza);
+      }
+    }
+  }
+  modoPrueba = false;
+}
+
+function torreisTrue(casilla) {
+  if (casilla === "casillero1") {
+    torre1 = 1;
+  } else if (casilla === "casillero8") {
+    torre2 = 1;
+  } else if (casilla === "casillero57") {
+    torre3 = 1;
+  } else if (casilla === "casillero64") {
+    torre4 = 1;
+  }
 }
 
 iniciarJuego();

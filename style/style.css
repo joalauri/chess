@@ -14,13 +14,12 @@ header {
   width: 100%;
   height: 65px;
   color: rgb(255, 255, 255);
-  border: 1px solid black;
-  background: #000000;
+  background: rgb(231, 255, 223);
   text-align: center;
 }
 
 main {
-    background: rgb(190, 190, 190);
+    background: rgb(213, 217, 254);
   margin-top: 15px;
   display: flex;
   flex-flow: row wrap;
@@ -42,20 +41,18 @@ main {
 }
 
 .blancas {
-  background: white;
-  /* border: 1px solid black; */
-  box-shadow: 1px 2px 2px gray;
+  background: rgb(255, 255, 255);
   border-radius: 2px;
 }
 .negras {
-  background: rgb(83, 83, 83);
+  background: rgb(211, 211, 211);
   border-radius: 2px;
 }
-.selected{
-  background: rgb(64, 255, 47);
+/* .selected{
+  background: rgb(148, 255, 138);
   position: absolute;
   z-index: 9000;
-}
+} */
 .maximoEspacio {
   width: 80px;
   height: 80px;
@@ -70,7 +67,7 @@ main {
   cursor: grabbing;
 } */
 .active{
-    background: chartreuse;
+    background: rgb(184, 255, 113);
 }
 .contenedorDeImagenes {
   display: flex;
@@ -278,13 +275,13 @@ main {
 .controlParaJugadores {
   display: flex;
   flex-flow: column wrap;
-  border: 1px solid black;
+  border: 1px solid rgb(203, 203, 203);
   margin: 10px;
 }
 .relojParaJugadores {
   width: 250px;
   height: 150px;
-  background: black;
+  background: rgb(203, 203, 203);
   margin: 20px;
   color: white;
 }
@@ -292,7 +289,7 @@ main {
 .puntajeJugadores {
   width: 250px;
   height: 150px;
-  background: black;
+  background: rgb(203, 203, 203);
   margin: 20px;
   color: white;
 }
@@ -300,6 +297,6 @@ main {
 footer {
   width: 100%;
   height: 200px;
-  background: rgb(15,15,15);
+  background: rgb(203, 203, 203);
   margin-top: 45px;
 }
