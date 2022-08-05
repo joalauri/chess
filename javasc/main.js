@@ -97,6 +97,9 @@ let torre4 = 0;
 let reyBlancoMove = 0;
 let reyNegroMove = 0;
 let turno = true;
+let count = 0;
+let jaqueTest = false;
+let tieneNoTiene = 0;
 // let contadorPeon = ""
 
 const addEvent = (casillas) => {
@@ -157,14 +160,12 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
   let comerPiezaDest = "";
   let casOritInt = parseInt(casillaOrig.slice(9));
   let casDestItn = parseInt(casillaDest.slice(9));
-  let tieneNoTiene = 0;
-  let count = 0;
   let countFin = 0;
   let cortarDiagonal1 = [];
   let cortarDiagonal2 = [];
   let cortarDiagonal3 = [];
   let cortarDiagonal4 = [];
-  let coronado = 0 
+  let coronado = 0;
 
   casillas.forEach((casillero) => {
     if (casillero.numeroDeCasilla.id === casillaOrig) {
@@ -185,11 +186,6 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
       let destino = casillero.numeroDeCasilla.id;
       let eliminarPieza = document.getElementById(casillero.numeroDeCasilla.id);
       comerPiezaDest = eliminarPieza;
-      /*
-       *
-       *
-       *
-       */
       if (comparacion07 === "caballo") {
         let casillaDeCab = casillaOrig.slice(9);
         let casillaDeCaballo = parseInt(casillaDeCab);
@@ -284,38 +280,35 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               if (element.includes("-") || numero > 64 || numero === 0) {
                 // console.log("");
               } else if (eleInLet.hasChildNodes()) {
+                //aca tengo que poner el jaque
                 if (
                   byn === true &&
                   compFinByn === false &&
                   element === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   element === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
                 } else if (
                   modoPrueba === true &&
                   byn === true &&
@@ -339,25 +332,19 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 eleInLet.hasChildNodes() === false &&
                 element === casillaDest
               ) {
-                if (modoPrueba === true) {
-                  amenazaARey++;
-                  tieneNoTiene++;
-                } else {
-                  kickImgBoardPrev(eliminarHijoNativo);
-                  comerPieza(comerPiezaDest);
-                  crearImagen(destino, "." + corregirURL);
-                  turnoF(byn,modoPrueba)
-                }
+                moverLasPiezas(
+                  eliminarHijoNativo,
+                  comerPiezaDest,
+                  destino,
+                  corregirURL,
+                  byn,
+                  modoPrueba
+                );
               }
             }
           });
         }
       }
-      /*
-       *
-       *
-       *
-       */
       if (comparacion05 === "alfil") {
         let casillaDeAlfil = casillaOrig.slice(9);
         let casillaDeAlfilN = parseInt(casillaDeAlfil);
@@ -454,38 +441,35 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   if (casillaDest === ele) {
                     let eleInLet = document.getElementById(ele);
                     if (eleInLet.hasChildNodes()) {
+                      //aca tengo que poner el jaque
                       if (
                         byn === true &&
                         compFinByn === false &&
                         ele === casillaDest &&
                         tieneNoTiene === 0
                       ) {
-                        if (modoPrueba === true) {
-                          amenazaARey++;
-                          tieneNoTiene++;
-                        } else {
-                          count++;
-                          kickImgBoardPrev(eliminarHijoNativo);
-                          comerPieza(comerPiezaDest);
-                          crearImagen(destino, "." + corregirURL);
-                          turnoF(byn,modoPrueba)
-                        }
+                        moverLasPiezas(
+                          eliminarHijoNativo,
+                          comerPiezaDest,
+                          destino,
+                          corregirURL,
+                          byn,
+                          modoPrueba
+                        );
                       } else if (
                         byn === false &&
                         compFinByn === true &&
                         ele === casillaDest &&
                         tieneNoTiene === 0
                       ) {
-                        if (modoPrueba === true) {
-                          amenazaARey++;
-                          tieneNoTiene++;
-                        } else {
-                          count++;
-                          kickImgBoardPrev(eliminarHijoNativo);
-                          comerPieza(comerPiezaDest);
-                          crearImagen(destino, "." + corregirURL);
-                          turnoF(byn,modoPrueba)
-                        }
+                        moverLasPiezas(
+                          eliminarHijoNativo,
+                          comerPiezaDest,
+                          destino,
+                          corregirURL,
+                          byn,
+                          modoPrueba
+                        );
                       } else if (
                         modoPrueba === true &&
                         byn === true &&
@@ -507,16 +491,15 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                       }
                     } else {
                       if (ele === casillaDest && tieneNoTiene === 0) {
-                        if (modoPrueba === true) {
-                          amenazaARey++;
-                          tieneNoTiene++;
-                        } else {
-                          count++;
-                          kickImgBoardPrev(eliminarHijoNativo);
-                          comerPieza(comerPiezaDest);
-                          crearImagen(destino, "." + corregirURL);
-                          turnoF(byn,modoPrueba)
-                        }
+                        moverLasPiezas(
+                          eliminarHijoNativo,
+                          comerPiezaDest,
+                          destino,
+                          corregirURL,
+                          byn,
+                          modoPrueba
+                        );
+                        // }
                       }
                     }
                   }
@@ -526,11 +509,6 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
           });
         } // cierre del for ---> de diagonal.
       }
-      /*
-       *
-       *
-       *
-       */
       if (comparacion04 === "peon") {
         let arrayPosiblesPeonB = [];
         let arrayPosiblesPeonN = [];
@@ -543,12 +521,12 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
 
         if (casOritInt < casDestItn) {
           arrayPosiblesPeonB.forEach((posibilidad) => {
-            
-           if (
+            if (
               casillaDest === posibilidad &&
               casillaOrig != casillaDest &&
-              count < 1 
+              count < 1
             ) {
+              //PARA LOS PEONES BLANCOS
               let derechoOReves = arrayPosiblesPeonB.slice();
               derechoOReves.forEach((ele) => {
                 let numero1 = ele.slice(9);
@@ -560,7 +538,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   if (eleInLet.hasChildNodes()) {
                     tieneNoTiene++;
                   } else {
-                      if (ele === casillaDest && tieneNoTiene === 0) {
+                    if (ele === casillaDest && tieneNoTiene === 0) {
                       if (casOritInt <= 16) {
                         if (
                           (casDestItn === casOritInt + 8 && count === 0) ||
@@ -569,23 +547,45 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           if (modoPrueba === true) {
                             console.log("imposible");
                           } else {
-                            count++;
-                            kickImgBoardPrev(eliminarHijoNativo);
-                            comerPieza(comerPiezaDest);
-                            crearImagen(destino, "." + corregirURL);
-                            turnoF(byn,modoPrueba)
+                            moverLasPiezas(
+                              eliminarHijoNativo,
+                              comerPiezaDest,
+                              destino,
+                              corregirURL,
+                              byn,
+                              modoPrueba
+                            );
                           }
                         }
                       } else {
-                        if (casDestItn === casOritInt + 8 && count === 0) {
+                        if (coronado === 0) {
+                          for (let i = 57; i < 65; i++) {
+                            if (casDestItn === i) {
+                              kickImgBoardPrev(eliminarHijoNativo);
+                              comerPieza(comerPiezaDest);
+                              coronarPeon(byn, casillaDest);
+                              coronado = 1;
+                              count++;
+                              turnoF(byn, modoPrueba);
+                            }
+                          }
+                        }
+                        if (
+                          casDestItn === casOritInt + 8 &&
+                          count === 0 &&
+                          coronado === 0
+                        ) {
                           if (modoPrueba === true) {
                             console.log("imposible");
                           } else {
-                            count++;
-                            kickImgBoardPrev(eliminarHijoNativo);
-                            comerPieza(comerPiezaDest);
-                            crearImagen(destino, "." + corregirURL);
-                            turnoF(byn,modoPrueba)
+                            moverLasPiezas(
+                              eliminarHijoNativo,
+                              comerPiezaDest,
+                              destino,
+                              corregirURL,
+                              byn,
+                              modoPrueba
+                            );
                           }
                         }
                       }
@@ -596,6 +596,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
             }
           });
         } else {
+          //PARA LOS PEONES NEGROS
           arrayPosiblesPeonN.forEach((posibilidad) => {
             if (
               casillaDest === posibilidad &&
@@ -607,7 +608,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 let numero1 = ele.slice(9);
                 let numero = parseFloat(numero1);
                 if (ele.includes("-") || numero > 64 || numero === 0) {
-                  // console.log("");
+                  // reject
                 } else {
                   let eleInLet = document.getElementById(ele);
 
@@ -623,23 +624,46 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           if (modoPrueba === true) {
                             console.log("imposible");
                           } else {
-                            count++;
-                            kickImgBoardPrev(eliminarHijoNativo);
-                            comerPieza(comerPiezaDest);
-                            crearImagen(destino, "." + corregirURL);
-                            turnoF(byn,modoPrueba)
+                            moverLasPiezas(
+                              eliminarHijoNativo,
+                              comerPiezaDest,
+                              destino,
+                              corregirURL,
+                              byn,
+                              modoPrueba
+                            );
                           }
                         }
                       } else {
-                        if (casDestItn === casOritInt - 8 && count === 0) {
+                        if (coronado === 0) {
+                          for (let i = 1; i < 9; i++) {
+                            if (casDestItn === i) {
+                              kickImgBoardPrev(eliminarHijoNativo);
+                              comerPieza(comerPiezaDest);
+                              coronarPeon(byn, casillaDest);
+                              coronado = 1;
+                              count++;
+                              turnoF(byn, modoPrueba);
+                            }
+                          }
+                        }
+
+                        if (
+                          casDestItn === casOritInt - 8 &&
+                          count === 0 &&
+                          coronado === 0
+                        ) {
                           if (modoPrueba === true) {
                             console.log("imposible");
                           } else {
-                            count++;
-                            kickImgBoardPrev(eliminarHijoNativo);
-                            comerPieza(comerPiezaDest);
-                            crearImagen(destino, "." + corregirURL);
-                            turnoF(byn,modoPrueba)
+                            moverLasPiezas(
+                              eliminarHijoNativo,
+                              comerPiezaDest,
+                              destino,
+                              corregirURL,
+                              byn,
+                              modoPrueba
+                            );
                           }
                         }
                       }
@@ -677,62 +701,77 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
           comerPeonB.push(`casillero${opcionPeonComer + 7}`);
           comerPeonN.push(`casillero${opcionPeonComer - 9}`);
         }
-
+        //PARA LOS PEONES BLANCOS
         if (casOritInt < casDestItn && modoPrueba === false) {
           if (bynCapturando.hasChildNodes() === true) {
+            //aca tengo que poner el jaque
             comerPeonB.forEach((element) => {
-              if(coronado === 0){
+              if (coronado === 0) {
                 for (let i = 57; i < 65; i++) {
-                  let coronaEnCasilla = `casillero${i}`
+                  let coronaEnCasilla = `casillero${i}`;
                   if (element === coronaEnCasilla) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     coronarPeon(byn, casillaDest);
-                    coronado = 1
+                    coronado = 1;
                     count++;
-                    turnoF(byn,modoPrueba)
+                    turnoF(byn, modoPrueba);
                   }
                 }
               }
               if (
                 byn === true &&
                 compFinByn === false &&
-                element === casillaDest && coronado === 0
+                element === casillaDest &&
+                coronado === 0
               ) {
-                count++;
-                kickImgBoardPrev(eliminarHijoNativo);
-                comerPieza(comerPiezaDest);
-                crearImagen(destino, "." + corregirURL);
-                turnoF(byn,modoPrueba)
+                moverLasPiezas(
+                  eliminarHijoNativo,
+                  comerPiezaDest,
+                  destino,
+                  corregirURL,
+                  byn,
+                  modoPrueba
+                );
               }
             });
           }
-        } else if (casOritInt > casDestItn && modoPrueba === false && coronado === 0) {
+          //PARA LOS PEONES NEGROS
+        } else if (
+          casOritInt > casDestItn &&
+          modoPrueba === false &&
+          coronado === 0
+        ) {
           if (bynCapturando.hasChildNodes() === true) {
+            //aca tengo que poner el jaque
             comerPeonN.forEach((element) => {
-              if(coronado === 0){
+              if (coronado === 0) {
                 for (let i = 1; i < 9; i++) {
-                  let coronaEnCasilla = `casillero${i}`
+                  let coronaEnCasilla = `casillero${i}`;
                   if (element === coronaEnCasilla) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     coronarPeon(byn, casillaDest);
-                    coronado = 1
+                    coronado = 1;
                     count++;
-                    turnoF(byn,modoPrueba)
+                    turnoF(byn, modoPrueba);
                   }
                 }
               }
               if (
                 byn === false &&
                 compFinByn === true &&
-                element === casillaDest && coronado === 0
+                element === casillaDest &&
+                coronado === 0
               ) {
-                count++;
-                kickImgBoardPrev(eliminarHijoNativo);
-                comerPieza(comerPiezaDest);
-                crearImagen(destino, "." + corregirURL);
-                turnoF(byn,modoPrueba)
+                moverLasPiezas(
+                  eliminarHijoNativo,
+                  comerPiezaDest,
+                  destino,
+                  corregirURL,
+                  byn,
+                  modoPrueba
+                );
               }
             });
           }
@@ -752,12 +791,6 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
           }
         }
       }
-
-      /*
-       *
-       *
-       *
-       */
       if (comparacion03 === "rey") {
         if (modoPrueba === false) {
           moverRey(casillaDest, byn);
@@ -820,7 +853,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               kickImgBoardPrev(document.getElementById("casillero1"));
               crearImagen("casillero3", "./assets/reyBlanco.png");
               crearImagen("casillero4", "./assets/torreBlanca.png");
-              turnoF(byn,modoPrueba)
+              turnoF(byn, modoPrueba);
             }
           }
         } else if (
@@ -841,7 +874,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               kickImgBoardPrev(document.getElementById("casillero8"));
               crearImagen("casillero7", "./assets/reyBlanco.png");
               crearImagen("casillero6", "./assets/torreBlanca.png");
-              turnoF(byn,modoPrueba)
+              turnoF(byn, modoPrueba);
             }
           }
         } else if (
@@ -865,7 +898,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               kickImgBoardPrev(document.getElementById("casillero61"));
               crearImagen("casillero59", "./assets/reyNegro.png");
               crearImagen("casillero60", "./assets/torreNegra.png");
-              turnoF(byn,modoPrueba)
+              turnoF(byn, modoPrueba);
             }
           }
         } else if (
@@ -886,7 +919,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               kickImgBoardPrev(document.getElementById("casillero61"));
               crearImagen("casillero63", "./assets/reyNegro.png");
               crearImagen("casillero62", "./assets/torreNegra.png");
-              turnoF(byn,modoPrueba)
+              turnoF(byn, modoPrueba);
             }
           }
         } else {
@@ -926,15 +959,15 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                       ele === casillaDest &&
                       tieneNoTiene === 0
                     ) {
-                      if (modoPrueba === true) {
-                        amenazaARey++;
-                        tieneNoTiene++;
-                      } else if (amenazaARey === 0) {
-                        count++;
-                        kickImgBoardPrev(eliminarHijoNativo);
-                        comerPieza(comerPiezaDest);
-                        crearImagen(destino, "." + corregirURL);
-                        turnoF(byn,modoPrueba)
+                      if (amenazaARey === 0) {
+                        moverLasPiezas(
+                          eliminarHijoNativo,
+                          comerPiezaDest,
+                          destino,
+                          corregirURL,
+                          byn,
+                          modoPrueba
+                        );
                         if (byn === true) {
                           reyBlancoMove = 1;
                         } else if (byn === false) {
@@ -947,15 +980,15 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                       ele === casillaDest &&
                       tieneNoTiene === 0
                     ) {
-                      if (modoPrueba === true) {
-                        amenazaARey++;
-                        tieneNoTiene++;
-                      } else if (amenazaARey === 0) {
-                        count++;
-                        kickImgBoardPrev(eliminarHijoNativo);
-                        comerPieza(comerPiezaDest);
-                        crearImagen(destino, "." + corregirURL);
-                        turnoF(byn,modoPrueba)
+                      if (amenazaARey === 0) {
+                        moverLasPiezas(
+                          eliminarHijoNativo,
+                          comerPiezaDest,
+                          destino,
+                          corregirURL,
+                          byn,
+                          modoPrueba
+                        );
                       }
                     } else if (
                       modoPrueba === true &&
@@ -978,15 +1011,15 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     }
                   } else {
                     if (ele === casillaDest && tieneNoTiene === 0) {
-                      if (modoPrueba === true) {
-                        amenazaARey++;
-                        tieneNoTiene++;
-                      } else if (amenazaARey === 0) {
-                        count++;
-                        kickImgBoardPrev(eliminarHijoNativo);
-                        comerPieza(comerPiezaDest);
-                        crearImagen(destino, "." + corregirURL);
-                        turnoF(byn,modoPrueba)
+                      if (amenazaARey === 0) {
+                        moverLasPiezas(
+                          eliminarHijoNativo,
+                          comerPiezaDest,
+                          destino,
+                          corregirURL,
+                          byn,
+                          modoPrueba
+                        );
                         if (byn === true) {
                           reyBlancoMove = 1;
                         } else if (byn === false) {
@@ -1005,11 +1038,6 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
           amenazaARey = 0;
         }
       }
-      /*
-       *
-       *
-       *
-       */
       if (comparacion05 === "reina") {
         let casillaDeReina = casillaOrig.slice(9);
         let casillaDeReinaN = parseInt(casillaDeReina);
@@ -1114,32 +1142,30 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                       ele === casillaDest &&
                       tieneNoTiene === 0
                     ) {
-                      if (modoPrueba === true) {
-                        amenazaARey++;
-                        tieneNoTiene++;
-                      } else {
-                        count++;
-                        kickImgBoardPrev(eliminarHijoNativo);
-                        comerPieza(comerPiezaDest);
-                        crearImagen(destino, "." + corregirURL);
-                        turnoF(byn,modoPrueba)
-                      }
+                      //aca tengo que poner el jaque
+
+                      moverLasPiezas(
+                        eliminarHijoNativo,
+                        comerPiezaDest,
+                        destino,
+                        corregirURL,
+                        byn,
+                        modoPrueba
+                      );
                     } else if (
                       byn === false &&
                       compFinByn === true &&
                       ele === casillaDest &&
                       tieneNoTiene === 0
                     ) {
-                      if (modoPrueba === true) {
-                        amenazaARey++;
-                        tieneNoTiene++;
-                      } else {
-                        count++;
-                        kickImgBoardPrev(eliminarHijoNativo);
-                        comerPieza(comerPiezaDest);
-                        crearImagen(destino, "." + corregirURL);
-                        turnoF(byn,modoPrueba)
-                      }
+                      moverLasPiezas(
+                        eliminarHijoNativo,
+                        comerPiezaDest,
+                        destino,
+                        corregirURL,
+                        byn,
+                        modoPrueba
+                      );
                     } else if (
                       modoPrueba === true &&
                       byn === true &&
@@ -1163,16 +1189,14 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     }
                   } else {
                     if (ele === casillaDest && tieneNoTiene === 0) {
-                      if (modoPrueba === true) {
-                        amenazaARey++;
-                        tieneNoTiene++;
-                      } else {
-                        count++;
-                        kickImgBoardPrev(eliminarHijoNativo);
-                        comerPieza(comerPiezaDest);
-                        crearImagen(destino, "." + corregirURL);
-                        turnoF(byn,modoPrueba)
-                      }
+                      moverLasPiezas(
+                        eliminarHijoNativo,
+                        comerPiezaDest,
+                        destino,
+                        corregirURL,
+                        byn,
+                        modoPrueba
+                      );
                     }
                   }
                 }
@@ -1225,32 +1249,30 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    turnoF(byn,modoPrueba)
-                  }
+                  //aca tengo que poner el jaque
+
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
                 } else if (
                   modoPrueba === true &&
                   byn === true &&
@@ -1274,16 +1296,14 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
                 }
               }
             });
@@ -1315,37 +1335,34 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               let eleInLet = document.getElementById(ele);
               if (eleInLet.hasChildNodes()) {
                 if (
+                  //aca tengo que poner el jaque
                   byn === true &&
                   compFinByn === false &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
                 } else if (
                   modoPrueba === true &&
                   byn === true &&
@@ -1369,27 +1386,20 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
                 }
               }
             });
           }
         });
       }
-      /*
-       *
-       *
-       *
-       */
       if (comparacion05 === "torre") {
         columna.forEach((column1a8) => {
           column1a8.forEach((element) => {
@@ -1432,39 +1442,37 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               let eleInLet = document.getElementById(ele);
               if (eleInLet.hasChildNodes()) {
                 if (
+                  //aca tengo que poner el jaque
                   byn === true &&
                   compFinByn === false &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    torreisTrue(casillaOrig);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
+                  torreisTrue(casillaOrig);
+                  // }
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    torreisTrue(casillaOrig);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
+                  torreisTrue(casillaOrig);
                 } else if (
                   modoPrueba === true &&
                   byn === true &&
@@ -1488,17 +1496,15 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    torreisTrue(casillaOrig);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
+                  torreisTrue(casillaOrig);
                 }
               }
             });
@@ -1530,39 +1536,38 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               let eleInLet = document.getElementById(ele);
               if (eleInLet.hasChildNodes()) {
                 if (
+                  //aca tengo que poner el jaque
                   byn === true &&
                   compFinByn === false &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    torreisTrue(casillaOrig);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
+                  torreisTrue(casillaOrig);
+                  // }
                 } else if (
                   byn === false &&
                   compFinByn === true &&
                   ele === casillaDest &&
                   tieneNoTiene === 0
                 ) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    torreisTrue(casillaOrig);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
+                  torreisTrue(casillaOrig);
+                  // }
                 } else if (
                   modoPrueba === true &&
                   byn === true &&
@@ -1586,31 +1591,24 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                 }
               } else {
                 if (ele === casillaDest && tieneNoTiene === 0) {
-                  if (modoPrueba === true) {
-                    amenazaARey++;
-                    tieneNoTiene++;
-                  } else {
-                    count++;
-                    kickImgBoardPrev(eliminarHijoNativo);
-                    comerPieza(comerPiezaDest);
-                    crearImagen(destino, "." + corregirURL);
-                    torreisTrue(casillaOrig);
-                    turnoF(byn,modoPrueba)
-                  }
+                  moverLasPiezas(
+                    eliminarHijoNativo,
+                    comerPiezaDest,
+                    destino,
+                    corregirURL,
+                    byn,
+                    modoPrueba
+                  );
+                  torreisTrue(casillaOrig);
                 }
               }
             });
           }
         });
       }
-      /*
-       *
-       *
-       *
-       */
     }
   });
- 
+
   tieneNoTiene = 0;
   casOritInt = 0;
   casDestItn = 0;
@@ -1620,7 +1618,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
   cortarDiagonal2 = [];
   cortarDiagonal3 = [];
   cortarDiagonal4 = [];
-  coronado = 0
+  coronado = 0;
 };
 
 const kickImgBoardPrev = function (saliente) {
@@ -1718,7 +1716,7 @@ function crearImagen(element, imagen) {
 
 function moverRey(destino, byn) {
   for (let i = 1; i < 65; i++) {
-    let probabilidad = document.getElementById(`casillero${i}`); 
+    let probabilidad = document.getElementById(`casillero${i}`);
     if (probabilidad.hasChildNodes() === true) {
       let casilleroID = `casillero${i}`;
       let objDe = probabilidad.firstChild.firstChild;
@@ -1727,18 +1725,18 @@ function moverRey(destino, byn) {
       modoPrueba = true;
 
       if (objDeAmenazaBYN === true && byn === false) {
-        turno = true
+        turno = true;
         modificarJugadas(casilleroID, destino, objeDeAmenaza);
       } else if (objDeAmenazaBYN === false && byn === true) {
-        turno = false
-        modificarJugadas(casilleroID, destino, objeDeAmenaza);    
+        turno = false;
+        modificarJugadas(casilleroID, destino, objeDeAmenaza);
       }
     }
   }
   if (byn === false) {
-    turno = false
+    turno = false;
   } else if (byn === true) {
-    turno = true    
+    turno = true;
   }
   modoPrueba = false;
 }
@@ -1776,7 +1774,7 @@ function coronarPeon(blancoOnegro, dest) {
     coronacionBlanca.forEach((element) => {
       element.addEventListener("click", () => {
         crearImagen(dest, element.id);
-        document.getElementById("cajaCoronacion").remove()
+        document.getElementById("cajaCoronacion").remove();
       });
     });
   } else {
@@ -1799,31 +1797,46 @@ function coronarPeon(blancoOnegro, dest) {
     coronacionNegra.forEach((element) => {
       element.addEventListener("click", () => {
         crearImagen(dest, element.id);
-        document.getElementById("cajaCoronacion").remove()
+        document.getElementById("cajaCoronacion").remove();
       });
     });
   }
 }
 
-function turnoF (byn,modoPrueba){
+function turnoF(byn, modoPrueba) {
   if (turno === true && byn === true && modoPrueba === false) {
     turno = false;
   } else if (turno === false && byn === false && modoPrueba === false) {
     turno = true;
   }
 }
-// function coronar(eleccion) {
-// }
 
+function moverLasPiezas(
+  hijoDelkick,
+  piezaAComer,
+  destino,
+  uRL,
+  byn,
+  pruebaONo
+) {
+  if (pruebaONo === true) {
+    amenazaARey++;
+    tieneNoTiene++;
+  } else {
+    count++;
+    kickImgBoardPrev(hijoDelkick);
+    comerPieza(piezaAComer);
+    crearImagen(destino, "." + uRL);
+    turnoF(byn, pruebaONo);
+  }
+}
+
+function darJaque(ultimoMovimiento, casReyblanco, casReyNegro, byn) {
+  jaqueTest = true;
+  if (byn === true) {
+    //casillero negro para buscar jaque
+  } else {
+    //casillero blanco para buscar jaque
+  }
+}
 iniciarJuego();
-
-// function limpiarTablero() { }
-// const moverPiezas = () => { };
-// function comerPiezas() { }
-// function coronarPeonBlanco() { }
-// function coronarPeonNegro() { }
-// function darJacke() { }
-// function enrocar() { }
-// function darMate() { }
-// function relojJugadores() { }
-// function turnero() { }
