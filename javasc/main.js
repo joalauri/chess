@@ -96,6 +96,7 @@ let torre3 = 0;
 let torre4 = 0;
 let reyBlancoMove = 0;
 let reyNegroMove = 0;
+let turno = true;
 // let contadorPeon = ""
 
 const addEvent = (casillas) => {
@@ -163,6 +164,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
   let cortarDiagonal2 = [];
   let cortarDiagonal3 = [];
   let cortarDiagonal4 = [];
+  let coronado = 0 
 
   casillas.forEach((casillero) => {
     if (casillero.numeroDeCasilla.id === casillaOrig) {
@@ -172,7 +174,14 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
   });
 
   casillas.forEach((casillero) => {
-    if (casillero.numeroDeCasilla.id === casillaDest) {
+    if (
+      (casillero.numeroDeCasilla.id === casillaDest &&
+        turno === true &&
+        byn === true) ||
+      (casillero.numeroDeCasilla.id === casillaDest &&
+        turno === false &&
+        byn === false)
+    ) {
       let destino = casillero.numeroDeCasilla.id;
       let eliminarPieza = document.getElementById(casillero.numeroDeCasilla.id);
       comerPiezaDest = eliminarPieza;
@@ -289,6 +298,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   byn === false &&
@@ -304,6 +314,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   modoPrueba === true &&
@@ -335,6 +346,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   kickImgBoardPrev(eliminarHijoNativo);
                   comerPieza(comerPiezaDest);
                   crearImagen(destino, "." + corregirURL);
+                  turnoF(byn,modoPrueba)
                 }
               }
             }
@@ -354,6 +366,18 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
           let alfilOpt2 = `casillero${casillaDeAlfilN + i * -7}`;
           let alfilOpt3 = `casillero${casillaDeAlfilN + i * 9}`;
           let alfilOpt4 = `casillero${casillaDeAlfilN + i * -9}`;
+          col1.forEach((el) => {
+            if (casillaOrig === el) {
+              alfilOpt1 = casillaOrig;
+              alfilOpt4 = casillaOrig;
+            }
+          });
+          col8.forEach((el) => {
+            if (casillaOrig === el) {
+              alfilOpt2 = casillaOrig;
+              alfilOpt3 = casillaOrig;
+            }
+          });
           let arrayDePosiblesAlfil = [
             alfilOpt1,
             alfilOpt2,
@@ -444,6 +468,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           kickImgBoardPrev(eliminarHijoNativo);
                           comerPieza(comerPiezaDest);
                           crearImagen(destino, "." + corregirURL);
+                          turnoF(byn,modoPrueba)
                         }
                       } else if (
                         byn === false &&
@@ -459,6 +484,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           kickImgBoardPrev(eliminarHijoNativo);
                           comerPieza(comerPiezaDest);
                           crearImagen(destino, "." + corregirURL);
+                          turnoF(byn,modoPrueba)
                         }
                       } else if (
                         modoPrueba === true &&
@@ -489,6 +515,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           kickImgBoardPrev(eliminarHijoNativo);
                           comerPieza(comerPiezaDest);
                           crearImagen(destino, "." + corregirURL);
+                          turnoF(byn,modoPrueba)
                         }
                       }
                     }
@@ -516,10 +543,11 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
 
         if (casOritInt < casDestItn) {
           arrayPosiblesPeonB.forEach((posibilidad) => {
-            if (
+            
+           if (
               casillaDest === posibilidad &&
               casillaOrig != casillaDest &&
-              count < 1
+              count < 1 
             ) {
               let derechoOReves = arrayPosiblesPeonB.slice();
               derechoOReves.forEach((ele) => {
@@ -532,7 +560,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   if (eleInLet.hasChildNodes()) {
                     tieneNoTiene++;
                   } else {
-                    if (ele === casillaDest && tieneNoTiene === 0) {
+                      if (ele === casillaDest && tieneNoTiene === 0) {
                       if (casOritInt <= 16) {
                         if (
                           (casDestItn === casOritInt + 8 && count === 0) ||
@@ -545,6 +573,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                             kickImgBoardPrev(eliminarHijoNativo);
                             comerPieza(comerPiezaDest);
                             crearImagen(destino, "." + corregirURL);
+                            turnoF(byn,modoPrueba)
                           }
                         }
                       } else {
@@ -556,6 +585,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                             kickImgBoardPrev(eliminarHijoNativo);
                             comerPieza(comerPiezaDest);
                             crearImagen(destino, "." + corregirURL);
+                            turnoF(byn,modoPrueba)
                           }
                         }
                       }
@@ -597,6 +627,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                             kickImgBoardPrev(eliminarHijoNativo);
                             comerPieza(comerPiezaDest);
                             crearImagen(destino, "." + corregirURL);
+                            turnoF(byn,modoPrueba)
                           }
                         }
                       } else {
@@ -608,6 +639,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                             kickImgBoardPrev(eliminarHijoNativo);
                             comerPieza(comerPiezaDest);
                             crearImagen(destino, "." + corregirURL);
+                            turnoF(byn,modoPrueba)
                           }
                         }
                       }
@@ -621,42 +653,86 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
 
         let comerPeonB = [];
         let comerPeonN = [];
-
+        let cascol1 = false;
+        let cascol2 = false;
         let comerPeon = casillaOrig.slice(9);
         let opcionPeonComer = parseInt(comerPeon);
-
-        comerPeonB.push(`casillero${opcionPeonComer + 7}`);
-        comerPeonB.push(`casillero${opcionPeonComer + 9}`);
-        comerPeonN.push(`casillero${opcionPeonComer - 7}`);
-        comerPeonN.push(`casillero${opcionPeonComer - 9}`);
+        col1.forEach((cas) => {
+          if (casillaOrig === cas) {
+            comerPeonB.push(`casillero${opcionPeonComer + 9}`);
+            comerPeonN.push(`casillero${opcionPeonComer - 7}`);
+            cascol1 = true;
+          }
+        });
+        col8.forEach((cas) => {
+          if (casillaOrig === cas) {
+            comerPeonB.push(`casillero${opcionPeonComer + 7}`);
+            comerPeonN.push(`casillero${opcionPeonComer - 9}`);
+            cascol2 = true;
+          }
+        });
+        if (cascol1 === false && cascol2 === false) {
+          comerPeonB.push(`casillero${opcionPeonComer + 9}`);
+          comerPeonN.push(`casillero${opcionPeonComer - 7}`);
+          comerPeonB.push(`casillero${opcionPeonComer + 7}`);
+          comerPeonN.push(`casillero${opcionPeonComer - 9}`);
+        }
 
         if (casOritInt < casDestItn && modoPrueba === false) {
           if (bynCapturando.hasChildNodes() === true) {
             comerPeonB.forEach((element) => {
+              if(coronado === 0){
+                for (let i = 57; i < 65; i++) {
+                  let coronaEnCasilla = `casillero${i}`
+                  if (element === coronaEnCasilla) {
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    coronarPeon(byn, casillaDest);
+                    coronado = 1
+                    count++;
+                    turnoF(byn,modoPrueba)
+                  }
+                }
+              }
               if (
                 byn === true &&
                 compFinByn === false &&
-                element === casillaDest
+                element === casillaDest && coronado === 0
               ) {
                 count++;
                 kickImgBoardPrev(eliminarHijoNativo);
                 comerPieza(comerPiezaDest);
                 crearImagen(destino, "." + corregirURL);
+                turnoF(byn,modoPrueba)
               }
             });
           }
-        } else if (casOritInt > casDestItn && modoPrueba === false) {
+        } else if (casOritInt > casDestItn && modoPrueba === false && coronado === 0) {
           if (bynCapturando.hasChildNodes() === true) {
             comerPeonN.forEach((element) => {
+              if(coronado === 0){
+                for (let i = 1; i < 9; i++) {
+                  let coronaEnCasilla = `casillero${i}`
+                  if (element === coronaEnCasilla) {
+                    kickImgBoardPrev(eliminarHijoNativo);
+                    comerPieza(comerPiezaDest);
+                    coronarPeon(byn, casillaDest);
+                    coronado = 1
+                    count++;
+                    turnoF(byn,modoPrueba)
+                  }
+                }
+              }
               if (
                 byn === false &&
                 compFinByn === true &&
-                element === casillaDest
+                element === casillaDest && coronado === 0
               ) {
                 count++;
                 kickImgBoardPrev(eliminarHijoNativo);
                 comerPieza(comerPiezaDest);
                 crearImagen(destino, "." + corregirURL);
+                turnoF(byn,modoPrueba)
               }
             });
           }
@@ -697,6 +773,20 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
         let reyMove6 = `casillero${opcionReyN + -7}`;
         let reyMove7 = `casillero${opcionReyN + -8}`;
         let reyMove8 = `casillero${opcionReyN + -9}`;
+        col1.forEach((element) => {
+          if (casillaOrig === element) {
+            reyMove2 = casillaOrig;
+            reyMove8 = casillaOrig;
+            reyMove5 = casillaOrig;
+          }
+        });
+        col8.forEach((element) => {
+          if (casillaOrig === element) {
+            reyMove6 = casillaOrig;
+            reyMove1 = casillaOrig;
+            reyMove4 = casillaOrig;
+          }
+        });
         let arrayPosiblesRey = [
           reyMove1,
           reyMove2,
@@ -730,6 +820,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               kickImgBoardPrev(document.getElementById("casillero1"));
               crearImagen("casillero3", "./assets/reyBlanco.png");
               crearImagen("casillero4", "./assets/torreBlanca.png");
+              turnoF(byn,modoPrueba)
             }
           }
         } else if (
@@ -750,6 +841,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               kickImgBoardPrev(document.getElementById("casillero8"));
               crearImagen("casillero7", "./assets/reyBlanco.png");
               crearImagen("casillero6", "./assets/torreBlanca.png");
+              turnoF(byn,modoPrueba)
             }
           }
         } else if (
@@ -773,6 +865,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               kickImgBoardPrev(document.getElementById("casillero61"));
               crearImagen("casillero59", "./assets/reyNegro.png");
               crearImagen("casillero60", "./assets/torreNegra.png");
+              turnoF(byn,modoPrueba)
             }
           }
         } else if (
@@ -793,6 +886,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               kickImgBoardPrev(document.getElementById("casillero61"));
               crearImagen("casillero63", "./assets/reyNegro.png");
               crearImagen("casillero62", "./assets/torreNegra.png");
+              turnoF(byn,modoPrueba)
             }
           }
         } else {
@@ -840,10 +934,11 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         kickImgBoardPrev(eliminarHijoNativo);
                         comerPieza(comerPiezaDest);
                         crearImagen(destino, "." + corregirURL);
+                        turnoF(byn,modoPrueba)
                         if (byn === true) {
                           reyBlancoMove = 1;
                         } else if (byn === false) {
-                          reynegroMove = 1;
+                          reyNegroMove = 1;
                         }
                       }
                     } else if (
@@ -860,6 +955,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         kickImgBoardPrev(eliminarHijoNativo);
                         comerPieza(comerPiezaDest);
                         crearImagen(destino, "." + corregirURL);
+                        turnoF(byn,modoPrueba)
                       }
                     } else if (
                       modoPrueba === true &&
@@ -890,6 +986,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         kickImgBoardPrev(eliminarHijoNativo);
                         comerPieza(comerPiezaDest);
                         crearImagen(destino, "." + corregirURL);
+                        turnoF(byn,modoPrueba)
                         if (byn === true) {
                           reyBlancoMove = 1;
                         } else if (byn === false) {
@@ -921,6 +1018,18 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
           let reinaOpt2 = `casillero${casillaDeReinaN + i * -7}`;
           let reinaOpt3 = `casillero${casillaDeReinaN + i * 9}`;
           let reinaOpt4 = `casillero${casillaDeReinaN + i * -9}`;
+          col1.forEach((el) => {
+            if (casillaOrig === el) {
+              reinaOpt1 = casillaOrig;
+              reinaOpt4 = casillaOrig;
+            }
+          });
+          col8.forEach((el) => {
+            if (casillaOrig === el) {
+              reinaOpt2 = casillaOrig;
+              reinaOpt3 = casillaOrig;
+            }
+          });
           let arrayDePosiblesReina = [
             reinaOpt1,
             reinaOpt2,
@@ -1013,6 +1122,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         kickImgBoardPrev(eliminarHijoNativo);
                         comerPieza(comerPiezaDest);
                         crearImagen(destino, "." + corregirURL);
+                        turnoF(byn,modoPrueba)
                       }
                     } else if (
                       byn === false &&
@@ -1028,6 +1138,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         kickImgBoardPrev(eliminarHijoNativo);
                         comerPieza(comerPiezaDest);
                         crearImagen(destino, "." + corregirURL);
+                        turnoF(byn,modoPrueba)
                       }
                     } else if (
                       modoPrueba === true &&
@@ -1060,6 +1171,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         kickImgBoardPrev(eliminarHijoNativo);
                         comerPieza(comerPiezaDest);
                         crearImagen(destino, "." + corregirURL);
+                        turnoF(byn,modoPrueba)
                       }
                     }
                   }
@@ -1121,6 +1233,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   byn === false &&
@@ -1136,6 +1249,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   modoPrueba === true &&
@@ -1168,6 +1282,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
+                    turnoF(byn,modoPrueba)
                   }
                 }
               }
@@ -1213,6 +1328,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   byn === false &&
@@ -1228,6 +1344,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   modoPrueba === true &&
@@ -1260,6 +1377,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
+                    turnoF(byn,modoPrueba)
                   }
                 }
               }
@@ -1328,6 +1446,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
                     torreisTrue(casillaOrig);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   byn === false &&
@@ -1344,6 +1463,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
                     torreisTrue(casillaOrig);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   modoPrueba === true &&
@@ -1377,6 +1497,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
                     torreisTrue(casillaOrig);
+                    turnoF(byn,modoPrueba)
                   }
                 }
               }
@@ -1423,6 +1544,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
                     torreisTrue(casillaOrig);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   byn === false &&
@@ -1439,6 +1561,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
                     torreisTrue(casillaOrig);
+                    turnoF(byn,modoPrueba)
                   }
                 } else if (
                   modoPrueba === true &&
@@ -1472,6 +1595,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     comerPieza(comerPiezaDest);
                     crearImagen(destino, "." + corregirURL);
                     torreisTrue(casillaOrig);
+                    turnoF(byn,modoPrueba)
                   }
                 }
               }
@@ -1486,6 +1610,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
        */
     }
   });
+ 
   tieneNoTiene = 0;
   casOritInt = 0;
   casDestItn = 0;
@@ -1495,6 +1620,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
   cortarDiagonal2 = [];
   cortarDiagonal3 = [];
   cortarDiagonal4 = [];
+  coronado = 0
 };
 
 const kickImgBoardPrev = function (saliente) {
@@ -1592,8 +1718,7 @@ function crearImagen(element, imagen) {
 
 function moverRey(destino, byn) {
   for (let i = 1; i < 65; i++) {
-    let probabilidad = document.getElementById(`casillero${i}`);
-
+    let probabilidad = document.getElementById(`casillero${i}`); 
     if (probabilidad.hasChildNodes() === true) {
       let casilleroID = `casillero${i}`;
       let objDe = probabilidad.firstChild.firstChild;
@@ -1602,11 +1727,18 @@ function moverRey(destino, byn) {
       modoPrueba = true;
 
       if (objDeAmenazaBYN === true && byn === false) {
+        turno = true
         modificarJugadas(casilleroID, destino, objeDeAmenaza);
       } else if (objDeAmenazaBYN === false && byn === true) {
-        modificarJugadas(casilleroID, destino, objeDeAmenaza);
+        turno = false
+        modificarJugadas(casilleroID, destino, objeDeAmenaza);    
       }
     }
+  }
+  if (byn === false) {
+    turno = false
+  } else if (byn === true) {
+    turno = true    
   }
   modoPrueba = false;
 }
@@ -1622,6 +1754,66 @@ function torreisTrue(casilla) {
     torre4 = 1;
   }
 }
+
+function coronarPeon(blancoOnegro, dest) {
+  if (blancoOnegro === true) {
+    let opcion = document.createElement(`div`);
+    opcion.setAttribute("class", "opciones");
+    opcion.setAttribute("id", "cajaCoronacion");
+    opcion.innerHTML = `
+  <div id="contenedorDeImagenes"><img id="${imagenes.reinaBlanca}" class="imagenCoronacion" src=${imagenes.reinaBlanca} alt=""></div>
+  <div id="contenedorDeImagenes"><img id="${imagenes.torreBlanca}" class="imagenCoronacion" src=${imagenes.torreBlanca} alt=""></div>
+  <div id="contenedorDeImagenes"><img id="${imagenes.alfilBlanco}" class="imagenCoronacion" src=${imagenes.alfilBlanco} alt=""></div>
+  <div id="contenedorDeImagenes"><img id="${imagenes.caballoBlanco}" class="imagenCoronacion" src=${imagenes.caballoBlanco} alt=""></div>
+  `;
+    document.getElementById("TableroPadre").appendChild(opcion);
+
+    let reinaBCor = document.getElementById(imagenes.reinaBlanca);
+    let torreBCor = document.getElementById(imagenes.torreBlanca);
+    let alfilBCor = document.getElementById(imagenes.alfilBlanco);
+    let caballoBCor = document.getElementById(imagenes.caballoBlanco);
+    let coronacionBlanca = [reinaBCor, torreBCor, alfilBCor, caballoBCor];
+    coronacionBlanca.forEach((element) => {
+      element.addEventListener("click", () => {
+        crearImagen(dest, element.id);
+        document.getElementById("cajaCoronacion").remove()
+      });
+    });
+  } else {
+    let opcion = document.createElement(`div`);
+    opcion.setAttribute("class", "opciones");
+    opcion.setAttribute("id", "cajaCoronacion");
+    opcion.innerHTML = `
+  <div id="contenedorDeImagenes"><img id="${imagenes.reinaNegra}" class="imagenCoronacion" src=${imagenes.reinaNegra} alt=""></div>
+  <div id="contenedorDeImagenes"><img id="${imagenes.torreNegra}" class="imagenCoronacion" src=${imagenes.torreNegra} alt=""></div>
+  <div id="contenedorDeImagenes"><img id="${imagenes.alfilNegro}" class="imagenCoronacion" src=${imagenes.alfilNegro} alt=""></div>
+  <div id="contenedorDeImagenes"><img id="${imagenes.caballoNegro}" class="imagenCoronacion" src=${imagenes.caballoNegro} alt=""></div>
+  `;
+    document.getElementById("TableroPadre").appendChild(opcion);
+
+    let reinaNCor = document.getElementById(imagenes.reinaNegra);
+    let torreNCor = document.getElementById(imagenes.torreNegra);
+    let alfilNCor = document.getElementById(imagenes.alfilNegro);
+    let caballoNCor = document.getElementById(imagenes.caballoNegro);
+    let coronacionNegra = [reinaNCor, torreNCor, alfilNCor, caballoNCor];
+    coronacionNegra.forEach((element) => {
+      element.addEventListener("click", () => {
+        crearImagen(dest, element.id);
+        document.getElementById("cajaCoronacion").remove()
+      });
+    });
+  }
+}
+
+function turnoF (byn,modoPrueba){
+  if (turno === true && byn === true && modoPrueba === false) {
+    turno = false;
+  } else if (turno === false && byn === false && modoPrueba === false) {
+    turno = true;
+  }
+}
+// function coronar(eleccion) {
+// }
 
 iniciarJuego();
 
