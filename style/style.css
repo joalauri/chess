@@ -14,12 +14,12 @@ header {
   width: 100%;
   height: 65px;
   color: rgb(255, 255, 255);
-  background: rgb(231, 255, 223);
+  background: rgb(31, 31, 31);
   text-align: center;
 }
 
 main {
-    background: rgb(171, 180, 255);
+    background: rgb(69, 69, 69);
   margin-top: 15px;
   display: flex;
   flex-flow: row wrap;
@@ -309,8 +309,17 @@ main {
 }
 
 footer {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 200px;
   background: rgb(203, 203, 203);
   margin-top: 45px;
+}
+.footerContainer{
+  display: flex;
+  flex-flow: column wrap;
+  margin: 10px;
 }

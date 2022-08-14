@@ -708,7 +708,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               if (coronado === 0) {
                 for (let i = 57; i < 65; i++) {
                   let coronaEnCasilla = `casillero${i}`;
-                  if (element === coronaEnCasilla && byn != bynCapturando && element === casillaDest) {
+                  if (element === coronaEnCasilla && byn != compFinByn && element === casillaDest) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     coronarPeon(byn, casillaDest);
@@ -747,7 +747,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               if (coronado === 0) {
                 for (let i = 1; i < 9; i++) {
                   let coronaEnCasilla = `casillero${i}`;
-                  if (element === coronaEnCasilla && byn != bynCapturando && element === casillaDest) {
+                  if (element === coronaEnCasilla && byn != compFinByn && element === casillaDest) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     coronarPeon(byn, casillaDest);
