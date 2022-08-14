@@ -1,56 +1,18 @@
-"# chess"  initgit add README.mdgit commit -m "first commit"git branch -M maingit remote add origin https://github.com/joalauri/chess.gitgit push -u origin main
-if(casillaDest === "casillero3" && byn === true && modoPrueba === false){
-              let cas2 = document.getElementById("casillero2");
-              let cas3= document.getElementById("casillero3");
-              let cas4 = document.getElementById("casillero4");
-              if(cas2.hasChildNodes===false&& cas3.hasChildNodes===false&& cas4.hasChildNodes===false){
-                moverRey("casillero2", byn);
-                moverRey("casillero3", byn);
-                moverRey("casillero4", byn);
-                if(amenazaARey === 0 && torre1 ===0  && reyBlancoMove === 0){
-                  modificarJugadas("casillero1", "casillero4","torreBlanca1" )
-                  modificarJugadas("casillero5", "casillero3","reyBlanco5")
-                  // const modificarJugadas = function (casillaOrig, casillaDest, object)
+Chess :
+This game is a simple chess. 
 
-                }
-              }
-            }else if(casillaDest === "casillero7" && byn === true && modoPrueba === false){
-              let cas6 = document.getElementById("casillero6");
-              let cas7= document.getElementById("casillero7");
-              if(cas6.hasChildNodes===false&& cas7.hasChildNodes===false){
-                moverRey("casillero6", byn);
-                moverRey("casillero7", byn);
-                if(amenazaARey === 0 && torre2 ===0 && reyBlancoMove === 0){
-                  modificarJugadas("casillero8", "casillero6","torreBlanca8")
-                  modificarJugadas("casillero5", "casillero3","reyBlanco5")
 
-                  
-                }
-              }
-            }else if(casillaDest === "casillero59" && byn === false && modoPrueba === false){
-              let cas58 = document.getElementById("casillero58");
-              let cas59= document.getElementById("casillero59");
-              let cas60 = document.getElementById("casillero60");
-              if(cas58.hasChildNodes===false&& cas59.hasChildNodes===false&& cas60.hasChildNodes===false){
-                moverRey("casillero58", byn);
-                moverRey("casillero59", byn);
-                moverRey("casillero60", byn);
-                if(amenazaARey === 0 && torre3 ===0 && reyNegroMove === 0){
-                  modificarJugadas("casillero57", "casillero60","torreNegra57")
-                  modificarJugadas("casillero61", "casillero59","reyNegro61")
+Objectives achieved:
+Real movement of pieces.
+Castling.
+Pawn coronation.
+Turn-based movement.
+threatened squares.
 
-                  
-                }
-              }
-            }else if(casillaDest === "casillero63" && byn === false && modoPrueba === false){
-              let cas62 = document.getElementById("casillero62");
-              let cas63= document.getElementById("casillero63");
-              if(cas62.hasChildNodes===false&& cas63.hasChildNodes===false){
-                moverRey("casillero62", byn);
-                moverRey("casillero63", byn);
-                if(amenazaARey === 0 && torre4 ===0 && reyNegroMove === 0){
-                  modificarJugadas("casillero64", "casillero62","torreNegra64")
-                  modificarJugadas("casillero61", "casillero63","reyNegro61")
-                }
-              }
-            }else{
+
+Upcoming additions:
+check and checkmate.
+time buttons for each player.
+win counter.
+color themes.
+
