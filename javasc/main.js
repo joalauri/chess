@@ -4,11 +4,6 @@ const f = functions();
 
 let casillas;
 const imagenes = f.imagenes;
-/* 
-*
-Condiciones a cumplir!
-*
-*/
 
 const col1 = [];
 const col2 = [];
@@ -100,8 +95,11 @@ let turno = true;
 let count = 0;
 let jaqueTest = false;
 let tieneNoTiene = 0;
-// let contadorPeon = ""
-
+let reyNegroGPS = "casillero61";
+let reyBlancoGPS = "casillero5";
+let enJaque = 0;
+let backupImagen = "";
+let coronado = 0;
 const addEvent = (casillas) => {
   for (let i = 1; i <= casillas.length; i++) {
     let casilla = document.getElementById(`casillero${i}`);
@@ -142,12 +140,13 @@ const desactivarCasilla = function (parametro) {
 const modificarJugadas = function (casillaOrig, casillaDest, object) {
   //declaraciones//
   let capturandoLaImagen = document.getElementById(object);
-  let corregirURL = capturandoLaImagen.src.slice(21);
+  let corregirURL = capturandoLaImagen.attributes.item(2).value
   let bynCapturando = document.getElementById(casillaDest);
   let compFinByn = false;
   if (bynCapturando.hasChildNodes() === true) {
     let comparacionCapturada = bynCapturando.firstChild.firstChild;
     let srcBYN = comparacionCapturada.src;
+    backupImagen = comparacionCapturada.id;
     compFinByn = srcBYN.includes("Blanc");
   }
   let captObjcID = capturandoLaImagen.id;
@@ -165,7 +164,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
   let cortarDiagonal2 = [];
   let cortarDiagonal3 = [];
   let cortarDiagonal4 = [];
-  let coronado = 0;
+
 
   casillas.forEach((casillero) => {
     if (casillero.numeroDeCasilla.id === casillaOrig) {
@@ -293,7 +292,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                 } else if (
                   byn === false &&
@@ -307,7 +306,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                 } else if (
                   modoPrueba === true &&
@@ -338,7 +337,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   destino,
                   corregirURL,
                   byn,
-                  modoPrueba
+                  casillaOrig
                 );
               }
             }
@@ -454,7 +453,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           destino,
                           corregirURL,
                           byn,
-                          modoPrueba
+                          casillaOrig
                         );
                       } else if (
                         byn === false &&
@@ -468,7 +467,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           destino,
                           corregirURL,
                           byn,
-                          modoPrueba
+                          casillaOrig
                         );
                       } else if (
                         modoPrueba === true &&
@@ -497,7 +496,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           destino,
                           corregirURL,
                           byn,
-                          modoPrueba
+                          casillaOrig
                         );
                         // }
                       }
@@ -553,7 +552,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                               destino,
                               corregirURL,
                               byn,
-                              modoPrueba
+                              casillaOrig
                             );
                           }
                         }
@@ -584,7 +583,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                               destino,
                               corregirURL,
                               byn,
-                              modoPrueba
+                              casillaOrig
                             );
                           }
                         }
@@ -630,7 +629,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                               destino,
                               corregirURL,
                               byn,
-                              modoPrueba
+                              casillaOrig
                             );
                           }
                         }
@@ -662,7 +661,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                               destino,
                               corregirURL,
                               byn,
-                              modoPrueba
+                              casillaOrig
                             );
                           }
                         }
@@ -709,7 +708,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               if (coronado === 0) {
                 for (let i = 57; i < 65; i++) {
                   let coronaEnCasilla = `casillero${i}`;
-                  if (element === coronaEnCasilla) {
+                  if (element === coronaEnCasilla && byn != bynCapturando && element === casillaDest) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     coronarPeon(byn, casillaDest);
@@ -731,7 +730,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   destino,
                   corregirURL,
                   byn,
-                  modoPrueba
+                  casillaOrig
                 );
               }
             });
@@ -748,7 +747,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
               if (coronado === 0) {
                 for (let i = 1; i < 9; i++) {
                   let coronaEnCasilla = `casillero${i}`;
-                  if (element === coronaEnCasilla) {
+                  if (element === coronaEnCasilla && byn != bynCapturando && element === casillaDest) {
                     kickImgBoardPrev(eliminarHijoNativo);
                     comerPieza(comerPiezaDest);
                     coronarPeon(byn, casillaDest);
@@ -770,7 +769,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                   destino,
                   corregirURL,
                   byn,
-                  modoPrueba
+                  casillaOrig
                 );
               }
             });
@@ -966,7 +965,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           destino,
                           corregirURL,
                           byn,
-                          modoPrueba
+                          casillaOrig
                         );
                         if (byn === true) {
                           reyBlancoMove = 1;
@@ -987,7 +986,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           destino,
                           corregirURL,
                           byn,
-                          modoPrueba
+                          casillaOrig
                         );
                       }
                     } else if (
@@ -1018,7 +1017,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                           destino,
                           corregirURL,
                           byn,
-                          modoPrueba
+                          casillaOrig
                         );
                         if (byn === true) {
                           reyBlancoMove = 1;
@@ -1150,7 +1149,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         destino,
                         corregirURL,
                         byn,
-                        modoPrueba
+                        casillaOrig
                       );
                     } else if (
                       byn === false &&
@@ -1164,7 +1163,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         destino,
                         corregirURL,
                         byn,
-                        modoPrueba
+                        casillaOrig
                       );
                     } else if (
                       modoPrueba === true &&
@@ -1195,7 +1194,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                         destino,
                         corregirURL,
                         byn,
-                        modoPrueba
+                        casillaOrig
                       );
                     }
                   }
@@ -1257,7 +1256,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                 } else if (
                   byn === false &&
@@ -1271,7 +1270,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                 } else if (
                   modoPrueba === true &&
@@ -1302,7 +1301,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                 }
               }
@@ -1347,7 +1346,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                 } else if (
                   byn === false &&
@@ -1361,7 +1360,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                 } else if (
                   modoPrueba === true &&
@@ -1392,7 +1391,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                 }
               }
@@ -1454,7 +1453,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                   torreisTrue(casillaOrig);
                   // }
@@ -1470,7 +1469,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                   torreisTrue(casillaOrig);
                 } else if (
@@ -1502,7 +1501,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                   torreisTrue(casillaOrig);
                 }
@@ -1548,7 +1547,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                   torreisTrue(casillaOrig);
                   // }
@@ -1564,7 +1563,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                   torreisTrue(casillaOrig);
                   // }
@@ -1597,7 +1596,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
                     destino,
                     corregirURL,
                     byn,
-                    modoPrueba
+                    casillaOrig
                   );
                   torreisTrue(casillaOrig);
                 }
@@ -1619,6 +1618,7 @@ const modificarJugadas = function (casillaOrig, casillaDest, object) {
   cortarDiagonal3 = [];
   cortarDiagonal4 = [];
   coronado = 0;
+  backupImagen = ""
 };
 
 const kickImgBoardPrev = function (saliente) {
@@ -1626,7 +1626,6 @@ const kickImgBoardPrev = function (saliente) {
 };
 const comerPieza = function (piezaComida) {
   if (piezaComida.hasChildNodes()) {
-    //acá comienzan las declaraciones de qué piezas se pueden comer.
     piezaComida.removeChild(piezaComida.firstChild);
   }
 };
@@ -1727,6 +1726,7 @@ function moverRey(destino, byn) {
       if (objDeAmenazaBYN === true && byn === false) {
         turno = true;
         modificarJugadas(casilleroID, destino, objeDeAmenaza);
+        //(casillaOrig, casillaDest, object)
       } else if (objDeAmenazaBYN === false && byn === true) {
         turno = false;
         modificarJugadas(casilleroID, destino, objeDeAmenaza);
@@ -1754,6 +1754,9 @@ function torreisTrue(casilla) {
 }
 
 function coronarPeon(blancoOnegro, dest) {
+if(jaqueTest === true){
+console.log("nothing here...")
+}else{
   if (blancoOnegro === true) {
     let opcion = document.createElement(`div`);
     opcion.setAttribute("class", "opciones");
@@ -1801,6 +1804,10 @@ function coronarPeon(blancoOnegro, dest) {
       });
     });
   }
+
+
+}
+
 }
 
 function turnoF(byn, modoPrueba) {
@@ -1811,32 +1818,97 @@ function turnoF(byn, modoPrueba) {
   }
 }
 
-function moverLasPiezas(
-  hijoDelkick,
-  piezaAComer,
-  destino,
-  uRL,
-  byn,
-  pruebaONo
-) {
-  if (pruebaONo === true) {
+function moverLasPiezas(objeto, piezaAComer, destino, uRL, byn, origen) {
+
+  // console.log("objeto: "+ objeto.firstChild.firstChild.id)
+  // console.log("objeto a comer no siempre funciona: " + piezaAComer)
+  // console.log("destino: "+destino)
+  // console.log("url de la que se mueve: "+ uRL)
+  // console.log("color: "+byn)
+  // console.log("origen de salida: "+origen)
+  // console.log("la imagen que elimina: "+backupImagen)
+  if (modoPrueba === true) {
     amenazaARey++;
     tieneNoTiene++;
-  } else {
-    count++;
-    kickImgBoardPrev(hijoDelkick);
-    comerPieza(piezaAComer);
-    crearImagen(destino, "." + uRL);
-    turnoF(byn, pruebaONo);
+  }
+  if(enJaque <= 0 && modoPrueba === false & jaqueTest === false){
+    if (objeto.firstChild.firstChild.id.includes("reyBla")) {
+      reyBlancoGPS = destino;
+    }
+    if (objeto.firstChild.firstChild.id.includes("reyNeg")) {
+      reyNegroGPS = destino;
+    }
+    if (
+      modoPrueba === false &&
+      enJaque === 0 &&
+      count === 0
+    ) {
+       count++;
+      kickImgBoardPrev(objeto);
+      comerPieza(piezaAComer);
+      crearImagen(destino, uRL);
+      turnoF(byn, modoPrueba);
+    }
   }
 }
 
-function darJaque(ultimoMovimiento, casReyblanco, casReyNegro, byn) {
-  jaqueTest = true;
-  if (byn === true) {
-    //casillero negro para buscar jaque
-  } else {
-    //casillero blanco para buscar jaque
-  }
+// function darJaque(byn) {
+//   enJaque = 0;
+//   for (let i = 1; i < 65; i++) {
+//     let probabilidad = document.getElementById(`casillero${i}`);
+//     if (probabilidad.hasChildNodes() === true) {
+//       let casilleroID = `casillero${i}`;
+//       let objDe = probabilidad.firstChild.firstChild;
+//       let objeDeAmenaza = objDe.id;
+//       let objDeAmenazaBYN = objeDeAmenaza.includes("Blanc");
+//       jaqueTest = true;
+//       count = 0;
+
+//       if (objDeAmenazaBYN === false && byn === false) {
+//         turno = false;
+//         modificarJugadas(casilleroID, reyBlancoGPS, objeDeAmenaza);
+//         //(casillaOrig, casillaDest, object)
+//       } else if (objDeAmenazaBYN === true && byn === true) {
+//         turno = true;
+//         modificarJugadas(casilleroID, reyNegroGPS, objeDeAmenaza);
+//       } else if (objDeAmenazaBYN === true && byn === false) {
+//         turno = true;
+//         modificarJugadas(casilleroID, reyNegroGPS, objeDeAmenaza);
+//         //(casillaOrig, casillaDest, object)
+//       } else if (objDeAmenazaBYN === false && byn === true) {
+//         turno = false;
+//         modificarJugadas(casilleroID, reyBlancoGPS, objeDeAmenaza);
+//       }
+//     }
+//   }
+//   if (byn === false) {
+//     turno = true;
+//   } else if (byn === true) {
+//     turno = false;
+//   }
+//   jaqueTest = false;
+// }
+
+function sigueElJuego(){
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
 iniciarJuego();

@@ -19,7 +19,7 @@ header {
 }
 
 main {
-    background: rgb(213, 217, 254);
+    background: rgb(171, 180, 255);
   margin-top: 15px;
   display: flex;
   flex-flow: row wrap;
